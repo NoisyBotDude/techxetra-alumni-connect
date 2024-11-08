@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,6 +14,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { UserAuth } from "../contexts/AuthContext";
 
 function Copyright(props) {
   return (
@@ -37,15 +38,10 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password")
-    });
-  };
+export default function SignInSide(props) {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -84,9 +80,6 @@ export default function SignInSide() {
               Sign up
             </Typography>
             <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
               <TextField
@@ -96,6 +89,8 @@ export default function SignInSide() {
                 id="email"
                 label="Email Address"
                 name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 autoFocus
               />
@@ -107,6 +102,8 @@ export default function SignInSide() {
                 label="Password"
                 type="password"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
               />
               <FormControlLabel
@@ -118,6 +115,7 @@ export default function SignInSide() {
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
+                onClick={() => props.handleSignIn({ email, password })}
               >
                 Sign Up
               </Button>
