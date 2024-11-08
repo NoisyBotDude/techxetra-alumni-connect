@@ -1,8 +1,6 @@
-import React from 'react';
-import SignInSide from '@/components/SignInSide';
+import React from "react";
+import SignUpSide from "../../components/SignUpSide";
 
-const SignUpPage = () => {
-    return <SignInSide />;
+export default function SignUp() {
+  return <SignUpSide />;
 }
-
-export default SignUpPage;
