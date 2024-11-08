@@ -1,10 +1,14 @@
 "use client";
 
-import * as React from "react";
+import React, { useState, useRef } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
@@ -15,36 +19,82 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function UserInfo() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password")
+  const selectRef = useRef();
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    bio: "",
+    skills: "",
+    interests: "",
+    currentRole: "",
+    company: "",
+    experienceYears: "",
+    industry: "",
+    linkedIn: "",
+    twitter: "",
+    github: "",
+    website: "",
+    rememberMe: false,
+    role: "student", // default to "student" or "alumni" if preferred
+  });
+
+  const handleChange = (e) => {
+    console.log(e)
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
     });
+  };
+
+  console.log(formData);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          skills: formData.skills.split(","),
+          interests: formData.interests.split(","),
+        }),
+      });
+
+      if (response.ok) {
+        alert("User information saved successfully!");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          bio: "",
+          skills: "",
+          interests: "",
+          currentRole: "",
+          company: "",
+          experienceYears: "",
+          industry: "",
+          linkedIn: "",
+          twitter: "",
+          github: "",
+          website: "",
+          role: "student",
+        });
+      } else {
+        alert("Failed to save user information");
+      }
+    } catch (error) {
+      console.error("Error saving user information:", error);
+    }
   };
 
   return (
@@ -65,7 +115,7 @@ export default function UserInfo() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Register
+              Additional Information
             </Typography>
             <Box
               component="form"
@@ -76,52 +126,199 @@ export default function UserInfo() {
               <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
                  <Grid item xs={6}>
                     <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="first-name"
-                    label="First Name"
-                    name="first-name"
-                    autoComplete="name"
-                    autoFocus
-                  />
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="first-name"
+                      label="First Name"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      autoFocus
+                    />
                  </Grid>
                  <Grid item xs={6}>
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="last-name"
-                    label="Last Name"
-                    type="text"
-                    id="last-name"
-                    autoComplete="name"
-                  />
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="lastName"
+                      label="Last Name"
+                      type="text"
+                      id="last-name"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={12}>
+                    <TextField
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="bio"
+                      label="Bio"
+                      type="text"
+                      id="bio"
+                      multiline
+                      rows={4}
+                      value={formData.bio}
+                      onChange={handleChange}
+                    />
                  </Grid>
                  <Grid item xs={6}>
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="last-name"
-                    label="Last Name"
-                    type="text"
-                    id="last-name"
-                    autoComplete="name"
-                  />
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="skills"
+                      label="Skills (comma-separated)"
+                      type="text"
+                      id="skills"
+                      value={formData.skills}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="interests"
+                      label="Interests (comma-separated)"
+                      type="text"
+                      id="interests"
+                      value={formData.interests}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="currentRole"
+                      label="Current Role"
+                      type="text"
+                      id="current-role"
+                      value={formData.currentRole}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="company"
+                      label="Company"
+                      type="text"
+                      id="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="experienceYears"
+                      label="Years of Experience"
+                      type="number"
+                      id="experience-years"
+                      value={formData.experienceYears}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="industry"
+                      label="Industry"
+                      type="text"
+                      id="industry"
+                      value={formData.industry}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="linkedIn"
+                      label="LinkedIn Profile"
+                      type="url"
+                      id="linkedIn"
+                      value={formData.linkedIn}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="twitter"
+                      label="Twitter Profile"
+                      type="url"
+                      id="twitter"
+                      value={formData.twitter}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="github"
+                      label="GitHub Profile"
+                      type="url"
+                      id="github"
+                      value={formData.github}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="website"
+                      label="Personal Website"
+                      type="url"
+                      id="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                    />
+                 </Grid>
+                 <Grid item xs={6}>
+                  <FormControl fullWidth>
+                    {/* <Select
+                      labelId="role-label"
+                      id="role"
+                      name="role"
+                      value={formData.role}
+                      onChange={handleChange}
+                      label="Role"
+                      ref={selectRef}
+                    >
+                      <MenuItem value="student">Student</MenuItem>
+                      <MenuItem value="alumni">Alumni</MenuItem>
+                    </Select> */}
+                    <TextField
+                      margin="normal"
+                      fullWidth
+                      name="role"
+                      label="Role"
+                      type="text"
+                      id="role"
+                      value={formData.role}
+                      onChange={handleChange}
+                    />
+                  </FormControl>
                  </Grid>
               </Grid>
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Register
+                Submit Information
               </Button>
               
               <Grid container>
@@ -136,7 +333,14 @@ export default function UserInfo() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+              <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 5 }}>
+                {"Copyright © "}
+                <Link color="inherit" href="https://mui.com/">
+                  Your Website
+                </Link>{" "}
+                {new Date().getFullYear()}
+                {"."}
+              </Typography>
             </Box>
           </Box>
         </Grid>
