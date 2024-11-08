@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -37,7 +37,11 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+export default function SignInSide(props) {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -84,9 +88,6 @@ export default function SignInSide() {
               Sign in
             </Typography>
             <Box
-              component="form"
-              noValidate
-              onSubmit={handleSubmit}
               sx={{ mt: 1 }}
             >
               <TextField
@@ -96,6 +97,8 @@ export default function SignInSide() {
                 id="email"
                 label="Email Address"
                 name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 autoFocus
               />
@@ -107,6 +110,8 @@ export default function SignInSide() {
                 label="Password"
                 type="password"
                 id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
               />
               <FormControlLabel
@@ -116,6 +121,7 @@ export default function SignInSide() {
               <Button
                 type="submit"
                 fullWidth
+                onClick={() => props.handleSignIn({ email, password })}
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
@@ -124,7 +130,9 @@ export default function SignInSide() {
               <Grid container justifyContent='center'>
 
                    
-                 <Button variant="outlined">
+                 <Button variant="outlined"
+                 onClick={props.handleGoogleSignUp}
+                 >
                   continue with Google</Button>
               
               </Grid>

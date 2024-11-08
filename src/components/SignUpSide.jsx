@@ -122,7 +122,9 @@ export default function SignInSide(props) {
               <Grid container justifyContent='center'>
 
                    
-                 <Button variant="outlined">
+                 <Button variant="outlined"
+                  onClick={props.handleGoogleSignUp}
+                 >
                   continue with Google</Button>
               
               </Grid>
