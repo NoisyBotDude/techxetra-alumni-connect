@@ -14,7 +14,7 @@ export default function HomePage() {
   useEffect(() => {
     const user_id = localStorage.getItem("user_id");
     if (!user_id) {
-      router.push("/login");
+      router.push("/signin");
     }
 
     const getUser = async () => {
@@ -54,8 +54,8 @@ export default function HomePage() {
             overflowY: "auto"
           }}
         >
-          <PersonalInfoSidebar data={userData?.user} />
-          <SignInCard />
+          {userData && <PersonalInfoSidebar data={userData?.user} />}
+          {!userData && <SignInCard />}
         </Box>
 
         {/* Main Content Area (Center, scrollable posts) */}
@@ -65,7 +65,8 @@ export default function HomePage() {
             maxHeight: "100vh",
             display: "flex",
             flexDirection: "column",
-            gap: 3
+            gap: 3,
+            width: "800px"
           }}
         >
           <Box mb={3}>
@@ -85,7 +86,7 @@ export default function HomePage() {
             position: "sticky",
             top: 20,
             height: "100vh",
-            overflowY: "auto"
+            width: "250px",
           }}
         >
           <Alumni />

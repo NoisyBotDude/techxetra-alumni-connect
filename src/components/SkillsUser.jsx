@@ -14,9 +14,9 @@ const Skills = () => {
   ];
 
   return (
-    <Box className="flex flex-col items-start w-full max-w-md p-4 bg-gray-800 text-white rounded-lg shadow-lg">
+    <Box className="flex flex-col items-start w-full py-4 px-4 bg-gray-800 text-white rounded-lg shadow-lg">
       {/* Title */}
-      <Typography variant="h6" className="font-semibold text-white mb-2">
+      <Typography variant="h6" className="font-semibold text-white mb-4">
         Skills
       </Typography>
 

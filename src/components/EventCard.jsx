@@ -69,7 +69,7 @@ const EventPage = (props) => {
               <a href={`/events/${event?.eventId}`} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                 <ContestCard
                   title={event?.title}
-                  date={event.time.start}
+                  date={event?.time?.start}
                   type={event?.type}
                   imageUrl="/path-to-image-1.jpg" // Replace with your actual image path
                 />

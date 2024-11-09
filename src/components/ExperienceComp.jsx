@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Typography, Avatar, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const Experience = () => {
+const Experience = ({ title }) => {
   const experiences = [
     {
       companyName: "Infosys",
@@ -35,7 +35,7 @@ const Experience = () => {
   ];
 
   return (
-    <Accordion sx={{ backgroundColor: "gray", color: "white", mb: 2 }}>
+    <Accordion className="rounded-md mb-2 bg-gray-800 text-white">
       <AccordionSummary
         expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
         aria-controls="experience-section-content"
@@ -43,14 +43,14 @@ const Experience = () => {
       >
         {/* Title for the entire Experience section */}
         <Typography variant="h6" className="font-semibold text-white">
-          Experience
+          {title}
         </Typography>
       </AccordionSummary>
 
       <AccordionDetails>
         {/* Inner Accordion for each experience item */}
         {experiences.map((experience, index) => (
-          <Accordion key={index} sx={{ backgroundColor: "#333", color: "white", mb: 2 }}>
+          <Accordion key={index} className="text-white bg-slate-700 mb-2">
             <AccordionSummary
               expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
               aria-controls={`panel${index}-content`}
@@ -60,14 +60,11 @@ const Experience = () => {
               <Box className="flex items-center">
                 {/* Company Initials Avatar */}
                 <Avatar
+                  className="w-12 h-12 font-semibold mr-2"
                   sx={{
-                    width: 50,
-                    height: 50,
                     bgcolor: experience.color,
                     color: "white",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    mr: 2,
+                    fontSize: 16,
                   }}
                 >
                   {experience.initials}

@@ -10,12 +10,13 @@ const BasicInfo = () => {
   };
 
   return (
-    <Box className="flex flex-col items-center p-6 bg-gray-800 text-white rounded-lg shadow-lg w-full max-w-sm">
+    <Box className="w-full py-4 px-4 flex flex-col justify-center space-y-4 items-center bg-gray-800 text-white rounded-lg shadow-lg">
       {/* Profile Picture */}
       <Avatar
         src={userInfo.avatarUrl}
         alt={userInfo.name}
-        sx={{ width: 100, height: 100, mb: 2 }}
+        className="border border-black h-16 w-16 text-xl font-semibold"
+        // sx={{ width: 80, height: 80, mb: 2, border: '1px solid black', fontSize: 16 }}
       />
       
       {/* Name */}

@@ -13,7 +13,7 @@ const BasicInformation = () => {
   };
 
   return (
-    <Box className="flex flex-col w-full max-w-lg p-6 bg-gray-800 text-white rounded-lg shadow-lg">
+    <div className="flex flex-col w-full px-4 py-4 bg-gray-800 text-white rounded-lg shadow-lg">
       {/* Title */}
       <Typography variant="h6" className="font-semibold text-white mb-4">
         Basic Information
@@ -22,7 +22,7 @@ const BasicInformation = () => {
       {/* Information Grid */}
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" color="white">
             AGE
           </Typography>
           <Typography variant="body1" color="white">
@@ -30,7 +30,7 @@ const BasicInformation = () => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" color="white">
             YEARS OF EXPERIENCE
           </Typography>
           <Typography variant="body1" color="white">
@@ -38,7 +38,7 @@ const BasicInformation = () => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" color="white">
             CTC
           </Typography>
           <Typography variant="body1" color="white">
@@ -46,7 +46,7 @@ const BasicInformation = () => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" color="white">
             LOCATION
           </Typography>
           <Typography variant="body1" color="white">
@@ -54,7 +54,7 @@ const BasicInformation = () => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" color="white">
             PHONE
           </Typography>
           <Typography variant="body1" color="white">
@@ -62,7 +62,7 @@ const BasicInformation = () => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body2" color="white">
             EMAIL
           </Typography>
           <Typography variant="body1" color="white">
@@ -90,7 +90,7 @@ const BasicInformation = () => {
           Send Email
         </Button>
       </Box>
-    </Box>
+    </div>
   );
 };
 
