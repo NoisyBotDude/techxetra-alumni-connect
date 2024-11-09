@@ -19,10 +19,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { UserAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 const defaultTheme = createTheme();
 
 export default function UserInfo() {
+  const router = useRouter();
   const { user } = UserAuth();
   console.log(user);
 
@@ -72,7 +74,6 @@ export default function UserInfo() {
       });
 
       if (response.ok) {
-        alert("User information saved successfully!");
         setFormData({
           firstName: "",
           lastName: "",
@@ -89,6 +90,7 @@ export default function UserInfo() {
           website: "",
           role: "student"
         });
+        router.push("/");
       } else {
         alert("Failed to save user information");
       }
@@ -334,19 +336,6 @@ export default function UserInfo() {
                   Submit Information
                 </Button>
               </div>
-
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
               <Typography
                 variant="body2"
                 color="text.secondary"

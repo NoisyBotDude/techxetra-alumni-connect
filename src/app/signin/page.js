@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SignInSide from "../../components/SignInSide";
 import { UserAuth } from "../../contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,13 @@ export default function SignIn() {
   const router = useRouter();
   const { loginUser, signInWithGoogle } = UserAuth();
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const user_id = localStorage.getItem("user_id");
+    if (user_id) {
+      router.push("/");
+    }
+  }, [])
 
   const addUserToDB = async (user) => {
     try {
@@ -56,6 +63,7 @@ export default function SignIn() {
     try {
       const response = await loginUser(data.email, data.password);
       if (response) {
+        localStorage.setItem("user_id", userCredential.user.uid);
         router.push("/");
       } else {
         setError("No account found with this email. Please sign up.");
@@ -73,6 +81,7 @@ export default function SignIn() {
       if (userCredential) {
         const user = userCredential.user;
         const userExists = await checkUserExists(user.uid);
+        localStorage.setItem("user_id", userCredential.user.uid);
         if (userExists) {
           router.push("/");
         } else {
