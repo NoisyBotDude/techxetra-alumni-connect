@@ -1,5 +1,6 @@
 // models/Event.js
 import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const EventSchema = new mongoose.Schema({
   _id: {
@@ -11,6 +12,7 @@ const EventSchema = new mongoose.Schema({
     required: true,
     unique: true,
     index: true,
+    default: uuidv4
   },
   title: {
     type: String,

@@ -9,7 +9,6 @@ export async function POST(req) {
       const { title, type, format, featured, description, date, location, timezone } = await req.json();
   
       const newEvent = await Event.create({
-        eventId: new mongoose.Types.ObjectId().toString(),
         title,
         type,
         format,
