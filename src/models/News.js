@@ -39,6 +39,22 @@ const newsSchema = new mongoose.Schema({
         default: Date.now,
     },
     authorIds: [String], 
+    likesCount: {
+        type: Number,
+        default: 0,
+    },
+    sharesCount: {
+        type: Number,
+        default: 0,
+    },
+    repostsCount: {
+        type: Number,
+        default: 0,
+    },
+    commentsCount: {
+        type: Number,
+        default: 0,
+    },
 });
 
 export default mongoose.models.News || mongoose.model('News', newsSchema);

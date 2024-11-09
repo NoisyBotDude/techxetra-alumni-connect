@@ -8,15 +8,45 @@ export async function GET(req, { params }) {
     const { id } = await params;
 
     const newsItem = await News.aggregate([
+      { $match: { newsId: id } },
       {
-        $match: { newsId: id },
+        $lookup: {
+          from: 'comments',
+          let: { newsId: '$newsId' },
+          pipeline: [
+            { $match: { $expr: { $and: [{ $eq: ['$targetId', '$$newsId'] }, { $eq: ['$targetType', 'news'] }] } } },
+          ],
+          as: 'comments',
+        },
       },
       {
         $lookup: {
-          from: 'users',               // MongoDB collection name for the User model
-          localField: 'authorIds',     // Field in News containing userId values
-          foreignField: 'userId',      // Field in User that matches authorIds
-          as: 'authors',               // Output field for matched User documents
+          from: 'likes',
+          let: { newsId: '$newsId' },
+          pipeline: [
+            { $match: { $expr: { $and: [{ $eq: ['$targetId', '$$newsId'] }, { $eq: ['$targetType', 'news'] }] } } },
+          ],
+          as: 'likes',
+        },
+      },
+      {
+        $lookup: {
+          from: 'shares',
+          let: { newsId: '$newsId' },
+          pipeline: [
+            { $match: { $expr: { $and: [{ $eq: ['$targetId', '$$newsId'] }, { $eq: ['$targetType', 'news'] }] } } },
+          ],
+          as: 'shares',
+        },
+      },
+      {
+        $lookup: {
+          from: 'reposts',
+          let: { newsId: '$newsId' },
+          pipeline: [
+            { $match: { $expr: { $and: [{ $eq: ['$targetId', '$$newsId'] }, { $eq: ['$targetType', 'news'] }] } } },
+          ],
+          as: 'reposts',
         },
       },
       {
@@ -29,7 +59,10 @@ export async function GET(req, { params }) {
           tags: 1,
           size: 1,
           createdAt: 1,
-          authors: { userId: 1, name: 1, email: 1 }, // Include only necessary fields from User
+          commentsCount: { $size: "$comments" },
+          likesCount: { $size: "$likes" },
+          sharesCount: { $size: "$shares" },
+          repostsCount: { $size: "$reposts" },
         },
       },
     ]);

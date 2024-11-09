@@ -20,7 +20,7 @@ const EventSchema = new mongoose.Schema({
   date: Date,
   location: String,
   attendees: [{
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    userId: { type: String, ref: 'User' },
     status: { type: String, enum: ['INTERESTED', 'GOING'], default: 'INTERESTED' },
   }],
 });
