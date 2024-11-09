@@ -8,7 +8,7 @@ export async function GET(req, { params }) {
     const id = (await params).id;
     
     try {
-        const user = await User.findOne({ user_id: id });
+        const user = await User.findOne({ userId: id });
         if (!user) {
             return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }
@@ -27,7 +27,7 @@ export async function PUT(req, { params }) {
     const body = await req.json();
     
     try {
-        const updatedUser = await User.findOneAndUpdate({ user_id: id, }, body, { new: true });
+        const updatedUser = await User.findOneAndUpdate({ userId: id, }, body, { new: true });
         if (!updatedUser) {
             return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }

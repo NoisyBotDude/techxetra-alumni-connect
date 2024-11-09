@@ -8,7 +8,7 @@ const UserSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         auto: true,
     },
-    user_id: {
+    userId: {
         type: String,
         required: true,
         unique: true,

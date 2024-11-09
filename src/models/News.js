@@ -24,6 +24,7 @@ const newsSchema = new mongoose.Schema({
     date: {
         type: Date,
         required: true,
+        default: Date.now,
     },
     content: String,
     imageUrl: String,
@@ -37,6 +38,7 @@ const newsSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    authorIds: [String], 
 });
 
 export default mongoose.models.News || mongoose.model('News', newsSchema);
