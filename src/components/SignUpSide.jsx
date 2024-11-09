@@ -12,76 +12,54 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import GoogleIcon from "@mui/icons-material/Google";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { UserAuth } from "../contexts/AuthContext";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
-export default function SignInSide(props) {
-
+export default function SignUpSide(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Grid container component="main" sx={{ height: "100vh" }}>
+      <Grid container component="main" className="h-screen bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-700">
         <CssBaseline />
         <Grid
           item
           xs={false}
           sm={4}
-          md={7}
-          sx={{
-            backgroundImage:
-              'url("/static/images/templates/templates-images/sign-in-side-bg.png")',
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
+          md={6}
+          className="hidden sm:block bg-cover bg-center"
+          style={{
+            backgroundImage: 'url("/static/images/templates/templates-images/sign-in-side-bg.png")',
             backgroundSize: "cover",
-            backgroundPosition: "left"
+            backgroundPosition: "left",
           }}
         />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={6} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
               mx: 4,
               display: "flex",
               flexDirection: "column",
-              alignItems: "center"
+              alignItems: "center",
+              backgroundColor: "rgba(255, 255, 255, 0.8)",
+              padding: "2rem",
+              borderRadius: "1rem",
+              boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
             }}
+            className="relative"
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <Avatar className="bg-gradient-to-r from-purple-500 to-indigo-500">
               <LockOutlinedIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" className="font-extrabold text-gray-800 mt-2">
               Sign up
             </Typography>
-            <Box
-              sx={{ mt: 1 }}
-            >
+            <Box sx={{ mt: 1 }} component="form">
               <TextField
                 margin="normal"
                 required
@@ -93,6 +71,7 @@ export default function SignInSide(props) {
                 onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
                 autoFocus
+                className="bg-white rounded-lg"
               />
               <TextField
                 margin="normal"
@@ -105,44 +84,44 @@ export default function SignInSide(props) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
+                className="bg-white rounded-lg"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
+                className="text-gray-700"
               />
               <Button
                 type="submit"
                 fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
                 onClick={() => props.handleSignIn({ email, password })}
+                variant="contained"
+                className="mt-4 mb-2 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-lg shadow-lg transition duration-300"
               >
                 Sign Up
               </Button>
-              <Grid container justifyContent='center'>
-
-                   
-                 <Button variant="outlined"
+              <Grid container justifyContent="center">
+                <Button
+                  variant="outlined"
                   onClick={props.handleGoogleSignUp}
-                 >
-                  continue with Google</Button>
-              
+                  startIcon={<GoogleIcon />}
+                  className="w-full bg-white text-indigo-700 border border-indigo-500 hover:bg-indigo-50 transition duration-300 mt-2 rounded-lg"
+                >
+                  Continue with Google
+                </Button>
               </Grid>
-              <br>
-              </br>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="#" variant="body2">
+              <Grid container className="mt-4" justifyContent="space-between">
+                <Grid item>
+                  <Link href="#" variant="body2" className="text-blue-600 hover:underline">
                     Forgot password?
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {"Don't have an account? Sign Up"}
+                  <Link href="#" variant="body2" className="text-blue-600 hover:underline">
+                    {"Already have an account? Sign In"}
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>
         </Grid>
