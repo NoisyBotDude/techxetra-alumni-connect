@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import SignUpSide from "../../components/SignUpSide";
+import SignInSide from "../../components/SignInSide";
 import { UserAuth } from "../../contexts/AuthContext";
 import { useRouter } from "next/navigation";
 
-export default function SignUp() {
+export default function SignIn() {
   const router = useRouter();
-  const { createUser, signInWithGoogle } = UserAuth();
+  const { loginUser, signInWithGoogle } = UserAuth();
   const [error, setError] = useState(null);
 
   const addUserToDB = async (user) => {
@@ -34,19 +34,35 @@ export default function SignUp() {
     }
   };
 
+  const checkUserExists = async (userId) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`);
+      if (response.ok) {
+        return await response.json();
+      }
+      if (response.status === 404) {
+        return null; // User does not exist
+      }
+      throw new Error("Error checking user existence");
+    } catch (error) {
+      console.error("User check error:", error);
+      setError("An error occurred while checking user existence. Please try again.");
+      return null;
+    }
+  };
+
   const handleSignIn = async (data) => {
     setError(null);
     try {
-      const userCredential = await createUser(data.email, data.password);
-      if (userCredential) {
-        const userAdded = await addUserToDB(userCredential.user);
-        if (userAdded) {
-          router.push("/add-info");
-        }
+      const response = await loginUser(data.email, data.password);
+      if (response) {
+        router.push("/");
+      } else {
+        setError("No account found with this email. Please sign up.");
       }
     } catch (error) {
       console.error("Sign-in error:", error);
-      setError("Failed to create an account. Please check your details and try again.");
+      setError("Failed to sign in. Please check your details and try again.");
     }
   };
 
@@ -55,9 +71,15 @@ export default function SignUp() {
     try {
       const userCredential = await signInWithGoogle();
       if (userCredential) {
-        const userAdded = await addUserToDB(userCredential.user);
-        if (userAdded) {
-          router.push("/add-info");
+        const user = userCredential.user;
+        const userExists = await checkUserExists(user.uid);
+        if (userExists) {
+          router.push("/");
+        } else {
+          const userAdded = await addUserToDB(user);
+          if (userAdded) {
+            router.push("/add-info");
+          }
         }
       }
     } catch (error) {
@@ -69,7 +91,7 @@ export default function SignUp() {
   return (
     <>
       {error && <p className="error-message">{error}</p>}
-      <SignUpSide 
+      <SignInSide 
         handleSignIn={handleSignIn} 
         handleGoogleSignUp={handleGoogleSignUp} 
       />
