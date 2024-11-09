@@ -1,13 +1,27 @@
-'use client';
-import { Box, Typography, Avatar, Button, IconButton, Divider, TextField } from '@mui/material';
-import { Close, CalendarToday, Article, PhotoCamera } from '@mui/icons-material';
-import EventModal from './EventModal';
+"use client";
+import {
+  Box,
+  Typography,
+  Avatar,
+  Button,
+  IconButton,
+  Divider,
+  TextField
+} from "@mui/material";
+import {
+  Close,
+  CalendarToday,
+  Article,
+  PhotoCamera,
+  EmojiEmotions
+} from "@mui/icons-material";
+import EventModal from "./EventModal";
 
 const AddPostComponent = () => {
   const userData = {
     name: "Kushal",
-    isVerified: false,  
-    avatar: "/path-to-avatar.jpg", // Replace with actual image path
+    isVerified: false,
+    avatar: "/path-to-avatar.jpg" // Replace with actual image path
   };
 
   return (
@@ -21,20 +35,20 @@ const AddPostComponent = () => {
           fullWidth
           className="ml-2 bg-gray-800 rounded-lg text-white"
           InputProps={{
-            style: { color: "white", borderRadius: "8px" },
+            style: { color: "white", borderRadius: "8px" }
           }}
           sx={{
             "& .MuiOutlinedInput-root": {
               "& fieldset": {
-                borderColor: "#4B5563", // Dark border color
+                borderColor: "#4B5563" // Dark border color
               },
               "&:hover fieldset": {
-                borderColor: "#60A5FA", // Blue on hover
+                borderColor: "#60A5FA" // Blue on hover
               },
               "&.Mui-focused fieldset": {
-                borderColor: "#60A5FA", // Blue on focus
-              },
-            },
+                borderColor: "#60A5FA" // Blue on focus
+              }
+            }
           }}
         />
       </Box>
@@ -50,6 +64,11 @@ const AddPostComponent = () => {
         <Box className="flex items-center cursor-pointer">
           <CalendarToday className="mr-1 text-yellow-500" />
           <EventModal />
+        </Box>
+        <Box className="flex items-center cursor-pointer">
+          <EmojiEmotions className="mr-1 text-yellow-500" />{" "}
+          {/* Changed icon */}
+          <Typography variant="body2">Feeling/Activity</Typography>
         </Box>
         <Box className="flex items-center cursor-pointer">
           <Article className="mr-1 text-red-500" />
