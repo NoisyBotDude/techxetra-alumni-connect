@@ -37,6 +37,10 @@ export default function SignUp() {
   const handleSignIn = async (data) => {
     setError(null);
     try {
+      if (data.password !== data.confirmPassword) {
+        setError("Passwords do not match. Please try again.");
+        return;
+      }
       const userCredential = await createUser(data.email, data.password);
       if (userCredential) {
         const userAdded = await addUserToDB(userCredential.user);

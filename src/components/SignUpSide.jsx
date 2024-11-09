@@ -21,6 +21,7 @@ const defaultTheme = createTheme();
 export default function SignUpSide(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -59,7 +60,7 @@ export default function SignUpSide(props) {
             <Typography component="h1" variant="h5" className="font-extrabold text-gray-800 mt-2">
               Sign up
             </Typography>
-            <Box sx={{ mt: 1 }} component="form">
+            <Box sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -94,8 +95,8 @@ export default function SignUpSide(props) {
                 label="Confirm-Password"
                 type="password"
                 id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
                 autoComplete="current-password"
                 className="bg-white rounded-lg"
               />
@@ -107,7 +108,7 @@ export default function SignUpSide(props) {
               <Button
                 type="submit"
                 fullWidth
-                onClick={() => props.handleSignIn({ email, password })}
+                onClick={() => props.handleSignIn({ email, password, confirmPassword })}
                 variant="contained"
                 className="mt-4 mb-2 bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-indigo-500 hover:to-purple-500 text-white font-semibold rounded-lg shadow-lg transition duration-300"
               >

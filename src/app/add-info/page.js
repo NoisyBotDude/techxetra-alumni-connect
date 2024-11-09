@@ -324,7 +324,7 @@ export default function UserInfo() {
                   </FormControl>
                 </Grid>
               </Grid>
-              <div class="flex items-center justify-center ">
+              <div className="flex items-center justify-center ">
                 <Button
                   type="submit"
                   justify-content="center"
