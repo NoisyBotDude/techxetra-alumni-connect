@@ -36,7 +36,7 @@ const ContestCard = ({ title, date, status, imageUrl }) => (
     <CardMedia
       component="img"
       image={imageUrl}
-      
+
       alt={title}
       sx={{
         height: 140,
@@ -61,62 +61,42 @@ const ContestCard = ({ title, date, status, imageUrl }) => (
 
 const EventPage = () => {
   return (
-    
-    <Box sx={{ backgroundColor: "#121212", padding: 4 }}>
-      <Typography variant="h5" sx={{ color: "#f5f5f5", fontWeight: "bold" }}>Upcoming Event</Typography>
-      <Grid container spacing={3}>
-        <Grid item>
-        <a href="/events/1" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-         <ContestCard
-            title="Weekly Contest 423"
-            startTime="Sunday 8:00 AM GMT+5:30"
-            countdown="14h 20m 52s"
-            imageUrl="/path-to-image-1.jpg" // Replace with your actual image path
-          />
-          </a>
-        </Grid>
-        <Grid item>
-        <a href="/events/1" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-         <ContestCard
-            title="Weekly Contest 423"
-            startTime="Sunday 8:00 AM GMT+5:30"
-            countdown="14h 20m 52s"
-            imageUrl="/path-to-image-1.jpg" // Replace with your actual image path
-          />
-          </a>
-        </Grid>
-        <Grid item>
-          <ContestCard
-            title="Biweekly Contest 143"
-            startTime="Saturday 8:00 PM GMT+5:30"
-            countdown="2h 20m 52s"
-            imageUrl="/path-to-image-2.jpg" // Replace with your actual image path
-          />
-        </Grid>
-      </Grid>
-     <Box sx={{ backgroundColor: "#121212", padding: 4 }}>
-      {/* Header Section */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
-        <Typography variant="h5" sx={{ color: "#f5f5f5", fontWeight: "bold" }}>
-          Featured Contests
-        </Typography>
-        
-      </Box>
 
-      {/* Contests Grid */}
+    <Box sx={{ backgroundColor: "#121212", padding: 4 }}>
+      <Typography variant="h5" sx={{ color: "#f5f5f5", fontWeight: "bold"}} mb={3}>Upcoming Event</Typography>
       <Grid container spacing={3}>
-        {contests.map((contest, index) => (
-          <Grid item key={index}>
+        <Grid item>
+          <a href="/events/1" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
             <ContestCard
-              title={contest.title}
-              date={contest.date}
-              status={contest.status}
-              imageUrl={contest.imageUrl}
+              title="Weekly Contest 423"
+              startTime="Sunday 8:00 AM GMT+5:30"
+              countdown="14h 20m 52s"
+              imageUrl="/path-to-image-1.jpg" // Replace with your actual image path
             />
-          </Grid>
-        ))}
+          </a>
+        </Grid>
       </Grid>
-    </Box>
+        {/* Header Section */}
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={3} mt={3}>
+          <Typography variant="h5" sx={{ color: "#f5f5f5", fontWeight: "bold" }}>
+            Featured Contests
+          </Typography>
+
+        </Box>
+
+        {/* Contests Grid */}
+        <Grid container spacing={3}>
+          {contests.map((contest, index) => (
+            <Grid item key={index}>
+              <ContestCard
+                title={contest.title}
+                date={contest.date}
+                status={contest.status}
+                imageUrl={contest.imageUrl}
+              />
+            </Grid>
+          ))}
+        </Grid>
 
     </Box>
   );

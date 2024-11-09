@@ -32,7 +32,7 @@ const ContestList = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: "#121212", color: "#ffffff", p: 4, borderRadius: 2, maxWidth: 900, mx: "auto" }}>
+    <Box sx={{ backgroundColor: "#121212", color: "#ffffff", p: 4, borderRadius: 2 }}>
       {/* Tabs Section */}
       <Tabs value={selectedTab} onChange={handleTabChange} indicatorColor="primary" sx={{ mb: 2 }}>
         <StyledTab label="Past Contests" />
