@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Box, Radio, Typography, IconButton, TextField, MenuItem, Button, FormControl, RadioGroup, FormControlLabel } from "@mui/material";
 import { Close, PhotoCamera } from "@mui/icons-material";
 
-const CreateNewsModal = ({ handleAddNews, onClose }) => {
+const CreateNewsModal = ({ handleAddNews, onClose, data }) => {
   const [title, setTitle] = useState('');
   const [newsType, setNewsType] = useState('news');
   const [description, setDescription] = useState('');
@@ -119,7 +119,8 @@ const CreateNewsModal = ({ handleAddNews, onClose }) => {
               description,
               content,
               tags: tags.split(",").map(tag => tag.trim()),
-              image
+              image,
+              authorIds: [data.userId]
             })}
           >
             Submit

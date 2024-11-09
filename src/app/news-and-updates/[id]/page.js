@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Avatar, Button, Typography, IconButton } from '@mui/material';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import ShareIcon from '@mui/icons-material/Share';
@@ -8,8 +8,9 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import EventIcon from '@mui/icons-material/Event';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { useRouter, useParams } from "next/navigation";
 
-const NewsDetail = ({ news }) => {
+const NewsDetail = () => {
   const suggestions = [
     {
       title: 'Next Workshop on Cloud Computing',
@@ -27,6 +28,24 @@ const NewsDetail = ({ news }) => {
       date: 'March 5, 2024',
     },
   ];
+
+  const params = useParams();
+
+  const [news, setNews] = useState({});
+
+  useEffect(() => {
+    const getNewsData = async () => {
+      const response = await fetch(`/api/news/${params?.id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch news');
+      }
+      const data = await response.json();
+      console.log(data);
+      setNews(data);
+    }
+
+    getNewsData();
+  }, [])
 
   const getIcon = (type) => {
     switch (type) {

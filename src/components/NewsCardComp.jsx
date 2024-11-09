@@ -36,16 +36,11 @@ const PostCard = (props) => {
         <Typography variant="h5" fontWeight="bold" color="#FFFFFF">
           {props.post?.title}
         </Typography>
-        {
-          props.post?.tags.map((tag, index) => (
             <Chip
-              key={index}
-              label={tag}
+              label={props.post?.tags[0]}
               sx={{ backgroundColor: "#b794f4", color: "#fff", fontWeight: "bold" }}
               
             />
-          ))
-        }
       </Box>
 
       {/* User Info */}
@@ -66,10 +61,12 @@ const PostCard = (props) => {
         </Box>
       </Box>
 
+      <a href={`/news-and-updates/${props.post.newsId}`} rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+        <Typography variant="body1" color="#f5f5f5" mb={2} sx={{ width: 600}}>
+          {props.post?.content}
+        </Typography>
+      </a>
       {/* Message Content */}
-      <Typography variant="body1" color="#f5f5f5" mb={2} sx={{ width: 600}}>
-        {props.post?.content}
-      </Typography>
 
       {/* Action and Response Section */}
       <Box className="w-full flex justify-between text-gray-400">

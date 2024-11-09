@@ -18,7 +18,7 @@ import {
 import EventModal from "./EventModal";
 import NewsModal from "./NewsModal";
 
-const AddPostComponent = () => {
+const AddPostComponent = (props) => {
   const userData = {
     name: "Kushal",
     isVerified: false,
@@ -55,7 +55,9 @@ const AddPostComponent = () => {
         <Box className="flex items-center cursor-pointer">
           <Article className="mr-1 text-red-500" />
           {/* <Typography variant="body2">Write News</Typography> */}
-          <NewsModal />
+          <NewsModal 
+            data={props.data}
+          />
         </Box>
       </Box>
     </Box>
