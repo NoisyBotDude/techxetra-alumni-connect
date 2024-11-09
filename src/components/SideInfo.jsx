@@ -2,7 +2,7 @@
 import { Box, Typography, Avatar, Button, Divider } from '@mui/material';
 import { Bookmark, Star } from '@mui/icons-material';
 
-const PersonalInfoSidebar = () => {
+const PersonalInfoSidebar = (props) => {
   const profileData = {
     name: "Kushal Khawas",
     description: "4th yr B.Tech undergraduate (ECE), MERN Developer, @YouTuber, with photography, video editing and Photoshop skills",
@@ -19,10 +19,10 @@ const PersonalInfoSidebar = () => {
           sx={{ width: 80, height: 80 }}
         />
         <Typography variant="h6" className="mt-2 font-semibold text-white">
-          {profileData.name}
+          {props.data?.firstName} {props.data?.lastName}
         </Typography>
         <Typography variant="body2" className="text-gray-400 text-center mt-1 px-4">
-          {profileData.description}
+          {props.data?.description}
         </Typography>
       </Box>
 
@@ -32,11 +32,11 @@ const PersonalInfoSidebar = () => {
       <Box className="w-full px-4 mb-4">
         <Box className="flex justify-between items-center mb-2">
           <Typography variant="body2" className="text-gray-400">Profile viewers</Typography>
-          <Typography variant="body2" className="text-blue-400">{profileData.profileViewers}</Typography>
+          <Typography variant="body2" className="text-blue-400">{props.data?.profileStats?.profileViewers}</Typography>
         </Box>
         <Box className="flex justify-between items-center">
           <Typography variant="body2" className="text-gray-400">Post impressions</Typography>
-          <Typography variant="body2" className="text-blue-400">{profileData.postImpressions}</Typography>
+          <Typography variant="body2" className="text-blue-400">{props.data?.profileStats?.postImpressions}</Typography>
         </Box>
       </Box>
 

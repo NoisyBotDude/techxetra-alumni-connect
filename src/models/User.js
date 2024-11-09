@@ -28,6 +28,11 @@ const UserSchema = new Schema({
         required: true,
         index: true,
     },
+    description: {
+        type: String,
+        required: false,
+        default: '',
+    },
     profileImage: {
         type: String,
         default: '',
@@ -80,6 +85,16 @@ const UserSchema = new Schema({
     contentContributions: [{
         contentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Content' },
     }],
+    profileStats: {
+        profileViewers: {
+            type: Number,
+            default: 0,
+        },
+        postImpressions: {
+            type: Number,
+            default: 0,
+        },
+    },
     createdAt: {
         type: Date,
         default: Date.now,

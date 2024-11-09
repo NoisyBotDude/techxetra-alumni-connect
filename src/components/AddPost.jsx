@@ -11,32 +11,7 @@ const AddPostComponent = () => {
   };
 
   return (
-    <Box className="flex flex-col items-center w-full max-w-lg p-4 bg-gray-800 text-white rounded-lg shadow-lg">
-      {/* Verification Banner */}
-      {!userData.isVerified && (
-        <Box className="w-full flex items-center justify-between bg-gray-700 text-white rounded-md p-3 mb-4">
-          <Box className="flex items-center">
-            <Avatar src={userData.avatar} sx={{ width: 40, height: 40 }} />
-            <Box ml={2}>
-              <Typography variant="body1" className="font-semibold">
-                {userData.name}, you haven’t verified yet
-              </Typography>
-              <Typography variant="body2" className="text-gray-400">
-                A verification badge gives others more confidence to interact with you.
-              </Typography>
-            </Box>
-          </Box>
-          <Box className="flex items-center space-x-2">
-            <Button variant="contained" color="primary" className="bg-blue-500 text-white text-sm">
-              Verify now
-            </Button>
-            <IconButton className="text-gray-400">
-              <Close />
-            </IconButton>
-          </Box>
-        </Box>
-      )}
-
+    <Box className="flex flex-col items-center w-full p-4 bg-gray-800 text-white rounded-lg shadow-lg">
       {/* Post Input Box */}
       <Box className="w-full bg-gray-700 rounded-md p-3 mb-4 flex items-center">
         <Avatar src={userData.avatar} sx={{ width: 40, height: 40 }} />

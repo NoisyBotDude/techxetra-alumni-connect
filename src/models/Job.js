@@ -2,6 +2,16 @@
 import mongoose from 'mongoose';
 
 const JobSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    auto: true,
+  },
+  jobId: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true,
+  },
   title: {
     type: String,
     required: true,
