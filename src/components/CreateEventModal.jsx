@@ -18,18 +18,54 @@ const CreateEventModal = ({ open, onClose }) => {
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Create New Event</DialogTitle>
-      <DialogContent>
-        <TextField label="Title" name="title" fullWidth onChange={handleChange} className="mb-4" />
-        <TextField label="Date" name="date" type="date" fullWidth onChange={handleChange} className="mb-4" />
-        <TextField label="Time" name="time" type="time" fullWidth onChange={handleChange} className="mb-4" />
-        <TextField label="Description" name="description" multiline rows={4} fullWidth onChange={handleChange} />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} className="text-gray-500">Cancel</Button>
-        <Button onClick={handleCreate} className="bg-blue-500 text-white">Create Event</Button>
-      </DialogActions>
-    </Dialog>
+  <DialogTitle>Create New Event</DialogTitle>
+  <DialogContent>
+    <TextField
+      label="Title"
+      name="title"
+      type='text'
+      required
+      fullWidth
+      onChange={handleChange}
+      className="mb-4"
+      InputLabelProps={{ shrink: true }}
+    />
+    <TextField
+      label="Date"
+      name="date"
+      type="date"
+      required
+      fullWidth
+      onChange={handleChange}
+      className="mb-4"
+      InputLabelProps={{ shrink: true }} // Ensures label doesn't overlap with date input
+    />
+    <TextField
+      label="Time"
+      name="time"
+      type="time"
+      required
+      fullWidth
+      onChange={handleChange}
+      className="mb-4"
+      InputLabelProps={{ shrink: true }} // Ensures label doesn't overlap with time input
+    />
+    <TextField
+      label="Description"
+      name="description"
+      required
+      multiline
+      rows={4}
+      fullWidth
+      onChange={handleChange}
+    />
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={onClose} className="text-gray-500">Cancel</Button>
+    <Button onClick={handleCreate} className="bg-blue-500 text-white">Create Event</Button>
+  </DialogActions>
+</Dialog>
+
   );
 };
 

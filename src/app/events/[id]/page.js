@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react';
-import { Typography, Button, Chip, Box } from '@mui/material';
-import RSVPModal from '../../../components/RSVPModal';
+import React, { useState } from "react";
+import { Typography, Button, Chip, Box } from "@mui/material";
+import RSVPModal from "../../../components/RSVPModal";
 
 const EventDetailPage = ({ event }) => {
   const [rsvpOpen, setRsvpOpen] = useState(false);
@@ -21,14 +21,22 @@ const EventDetailPage = ({ event }) => {
         </Typography>
         <Button
           variant="contained"
-          className="bg-green-500 hover:bg-green-600 text-white mr-4"
+          className="bg-green-500 hover:bg-green-600 text-white mr-4 rounded-lg"
           onClick={() => setRsvpOpen(true)}
         >
           RSVP
         </Button>
-        <Chip label="Reminder Set" color="primary" className="bg-yellow-500 text-white" />
+        <Chip
+          label="Reminder Set"
+          color="primary"
+          className="bg-amber-500 text-white-900 font-bold"
+        />
       </Box>
-      <RSVPModal open={rsvpOpen} onClose={() => setRsvpOpen(false)} event={event} />
+      <RSVPModal
+        open={rsvpOpen}
+        onClose={() => setRsvpOpen(false)}
+        event={event}
+      />
     </div>
   );
 };
