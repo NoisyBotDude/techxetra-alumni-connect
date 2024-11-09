@@ -29,28 +29,9 @@ const AddPostComponent = () => {
       {/* Post Input Box */}
       <Box className="w-full bg-gray-700 rounded-md p-3 mb-4 flex items-center">
         <Avatar src={userData.avatar} sx={{ width: 40, height: 40 }} />
-        <TextField
-          variant="outlined"
-          placeholder="Start a post, try writing with AI"
-          fullWidth
-          className="ml-2 bg-gray-800 rounded-lg text-white"
-          InputProps={{
-            style: { color: "white", borderRadius: "8px" }
-          }}
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              "& fieldset": {
-                borderColor: "#4B5563" // Dark border color
-              },
-              "&:hover fieldset": {
-                borderColor: "#60A5FA" // Blue on hover
-              },
-              "&.Mui-focused fieldset": {
-                borderColor: "#60A5FA" // Blue on focus
-              }
-            }
-          }}
-        />
+        <Typography variant="h6" className="ml-2">
+          Whats on your mind, {userData.name}?
+        </Typography>
       </Box>
 
       <Divider className="w-full mb-4 bg-gray-600" />
@@ -72,7 +53,7 @@ const AddPostComponent = () => {
         </Box>
         <Box className="flex items-center cursor-pointer">
           <Article className="mr-1 text-red-500" />
-          <Typography variant="body2">Write article</Typography>
+          <Typography variant="body2">Write News</Typography>
         </Box>
       </Box>
     </Box>

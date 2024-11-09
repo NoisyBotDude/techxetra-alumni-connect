@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -25,6 +25,23 @@ export default function EventModal() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const handleAddEvent = async (data) => {
+    const response = await fetch('/api/events/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      console.log('Event created successfully');
+      handleClose();
+    } else {
+      console.error('Failed to create event');
+    }
+  }
+
   return (
     <div>
       <Button onClick={handleOpen}>Event</Button>
@@ -35,7 +52,9 @@ export default function EventModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-         <CreateEventModal/>
+         <CreateEventModal
+          handleAddEvent={handleAddEvent}
+         />
         </Box>
       </Modal>
     </div>
