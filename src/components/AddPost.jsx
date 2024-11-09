@@ -16,6 +16,7 @@ import {
   EmojiEmotions
 } from "@mui/icons-material";
 import EventModal from "./EventModal";
+import NewsModal from "./NewsModal";
 
 const AddPostComponent = () => {
   const userData = {
@@ -53,7 +54,8 @@ const AddPostComponent = () => {
         </Box>
         <Box className="flex items-center cursor-pointer">
           <Article className="mr-1 text-red-500" />
-          <Typography variant="body2">Write News</Typography>
+          {/* <Typography variant="body2">Write News</Typography> */}
+          <NewsModal />
         </Box>
       </Box>
     </Box>
