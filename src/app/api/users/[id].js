@@ -25,10 +25,10 @@ export default async function handler(req, res) {
       }
       res.status(200).json(updatedUser);
     } catch (error) {
+      console.error('Error updating user:', error);
       res.status(400).json({ message: 'Error updating user', error: error.message });
     }
   } else {
-    res.setHeader('Allow', ['GET', 'PUT']);
-    res.status(405).end(`Method ${req.method} Not Allowed`);
+    res.status(405).json({ message: 'Method not allowed' });
   }
 }

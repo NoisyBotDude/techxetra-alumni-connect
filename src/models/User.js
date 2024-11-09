@@ -4,24 +4,29 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
-    _id: Schema.Types.ObjectId,
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        auto: true,
+    },
     user_id: {
         type: String,
         required: true,
         unique: true,
+        index : true,
     },
-    name: {
+    firstName: {
         type: String,
-        required: true,
+        required: false,
+    },
+    lastName: {
+        type: String,
+        required: false,
     },
     email: {
         type: String,
         unique: true,
         required: true,
-    },
-    password: {
-        type: String,
-        required: true,
+        index: true,
     },
     profileImage: {
         type: String,
