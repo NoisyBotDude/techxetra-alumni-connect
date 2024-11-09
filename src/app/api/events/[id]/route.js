@@ -11,8 +11,7 @@ export async function GET(req, { params }) {
       const myPastEvents = await Event.aggregate([
         {
           $match: {
-            date: { $lt: new Date() },
-            'attendees.userId': id,
+            eventId: id,
           },
         },
         {

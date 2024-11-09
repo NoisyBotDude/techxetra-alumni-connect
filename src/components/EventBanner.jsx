@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 
-const EventBanner = () => {
+const EventBanner = (props) => {
   return (
     <>
       <Box
@@ -30,7 +30,7 @@ const EventBanner = () => {
         {/* Poster */}
         <CardMedia
           component="img"
-          image="/path-to-your-image.jpg" // Replace with the actual path to your event poster
+          image={props.imageUrl}// Replace with the actual path to your event poster
           alt="Event Poster"
           sx={{ width: { xs: "100%", md: 300 }, borderRadius: 2 }}
         />
@@ -60,7 +60,7 @@ const EventBanner = () => {
                   marginBottom: "10px"
                 }}
               >
-                Techxetra
+                {props.data?.title}
               </Typography>
               <IconButton color="primary" aria-label="share">
                 <ShareIcon sx={{ color: "#f5f5f5" }} />
@@ -76,18 +76,18 @@ const EventBanner = () => {
                 variant="outlined"
                 sx={{ color: "#ffffff", borderColor: "#ffffff" }}
               >
-                Tezpur University
+                {props.data?.location}
               </Button>
               <Button
                 variant="outlined"
                 sx={{ color: "#ffffff", borderColor: "#ffffff" }}
               >
-                Hindi
+                {props.data?.language === "en" && "English"}
               </Button>
             </Box>
 
             <Typography variant="body2" sx={{ color: "#b0b0b0" }}>
-              10:00am • Webinar • 1 Nov, 2024
+              {props.data?.time?.start} • {props.data?.type} • {props.data?.date}
             </Typography>
 
             {/* Register Button */}
@@ -131,10 +131,7 @@ const EventBanner = () => {
           About
         </Typography>
         <Typography variant="body2" sx={{ color: "#b0b0b0" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
-          necessitatibus tempore perspiciatis molestias reiciendis saepe dolorum
-          minima cumque perferendis repellendus quam, harum placeat quisquam
-          hic, enim doloribus esse cupiditate commodi.
+          {props.data?.description}
         </Typography>
 
         {/* Speaker Section */}
