@@ -24,7 +24,7 @@ const StyledTab = styled(Tab)({
   },
 });
 
-const ContestList = () => {
+const ContestList = (props) => {
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleTabChange = (event, newValue) => {
@@ -40,7 +40,7 @@ const ContestList = () => {
       </Tabs>
       
       {/* Contest List */}
-      {contests.map((contest, index) => (
+      {props.pastEvents.map((contest, index) => (
         <Card
           key={index}
           sx={{
