@@ -5,22 +5,11 @@ import News from '../../../../../models/News';
 export async function GET(req, { params }) {
   try {
     await connectToDatabase();
-    const { id } = params;
+    const { id } = await params; // `id` now represents `authorId`
 
-    // Find the current news item to get its tags and type
-    const currentNews = await News.findOne({ newsId: id });
-    if (!currentNews) {
-      return NextResponse.json({ message: 'News item not found' }, { status: 404 });
-    }
-
-    // Aggregate to find suggestions based on tags and type
-    const suggestions = await News.aggregate([
+    const newsItems = await News.aggregate([
       {
-        $match: {
-          newsId: { $ne: id },
-          tags: { $in: currentNews.tags },
-          type: currentNews.type,
-        },
+        $match: { authorIds: id }, // Match news items where `authorIds` includes the specified `authorId`
       },
       {
         $lookup: {
@@ -35,19 +24,22 @@ export async function GET(req, { params }) {
           title: 1,
           description: 1,
           date: 1,
-          type: 1,
+          content: 1,
           imageUrl: 1,
           tags: 1,
+          size: 1,
+          createdAt: 1,
           authors: { userId: 1, name: 1, email: 1 }, // Include only necessary fields from User
         },
       },
-      {
-        $limit: 5, // Limit the number of suggestions
-      },
     ]);
 
-    return NextResponse.json(suggestions, { status: 200 });
+    if (!newsItems || newsItems.length === 0) {
+      return NextResponse.json({ message: 'No news items found for this author' }, { status: 404 });
+    }
+
+    return NextResponse.json(newsItems, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: 'Failed to retrieve suggestions', error: error.message }, { status: 500 });
+    return NextResponse.json({ message: 'Error retrieving news items', error: error.message }, { status: 500 });
   }
 }
