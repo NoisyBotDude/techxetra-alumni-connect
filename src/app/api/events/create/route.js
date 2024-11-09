@@ -6,7 +6,7 @@ import User from '../../../../models/User';
 export async function POST(req) {
     try {
       await connectToDatabase();
-      const { title, type, format, featured, description, date, location, timezone } = await req.json();
+      const { title, type, format, featured, description, date, location, timezone, time } = await req.json();
   
       const newEvent = await Event.create({
         title,
@@ -15,6 +15,7 @@ export async function POST(req) {
         featured,
         description,
         date,
+        time,
         location,
         timezone,
         attendees: [],

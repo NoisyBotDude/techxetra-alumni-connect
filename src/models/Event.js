@@ -39,6 +39,10 @@ const EventSchema = new mongoose.Schema({
     default: 'en',
   },
   date: Date,
+  time: {
+    start: Date,
+    end: Date,
+  },
   location: String,
   timezone: String,
   attendees: [{
