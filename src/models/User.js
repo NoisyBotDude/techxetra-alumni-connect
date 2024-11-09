@@ -8,7 +8,7 @@ const UserSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         auto: true,
     },
-    user_id: {
+    userId: {
         type: String,
         required: true,
         unique: true,
@@ -27,6 +27,11 @@ const UserSchema = new Schema({
         unique: true,
         required: true,
         index: true,
+    },
+    description: {
+        type: String,
+        required: false,
+        default: '',
     },
     profileImage: {
         type: String,
@@ -80,6 +85,16 @@ const UserSchema = new Schema({
     contentContributions: [{
         contentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Content' },
     }],
+    profileStats: {
+        profileViewers: {
+            type: Number,
+            default: 0,
+        },
+        postImpressions: {
+            type: Number,
+            default: 0,
+        },
+    },
     createdAt: {
         type: Date,
         default: Date.now,

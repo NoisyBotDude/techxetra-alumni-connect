@@ -2,6 +2,16 @@
 import mongoose from 'mongoose';
 
 const ContentSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    auto: true,
+  },
+  contentId: {
+    type: String,
+    required: true,
+    unique: true,
+    index: true,
+  },
   title: {
     type: String,
     required: true,
