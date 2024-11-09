@@ -4,10 +4,12 @@ import React, { useState, useEffect } from "react";
 import AddPost from "@/components/AddPost";
 import PersonalInfoSidebar from "@/components/SideInfo";
 import PersonalInfoPost from "@/components/PostComponent";
+import Alumni from "../components/ConnectAlumni";
 import { Box, Grid } from "@mui/material";
 
 export default function HomePage() {
   const [userData, setUserData] = useState(null);
+
   useEffect(() => {
     const user_id = localStorage.getItem("user_id");
     if (!user_id) {
@@ -33,15 +35,38 @@ export default function HomePage() {
 
   return (
     <Box sx={{ padding: 2 }}>
-      <Grid container spacing={2}>
-        {/* Left Sidebar */}
-        <Grid item xs={6} md={6} lg={3}>
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr", md: "250px 1fr 250px" },
+          gap: 3
+        }}
+      >
+        {/* Left Sidebar (Fixed) */}
+        <Box
+          sx={{
+            position: "sticky",
+            top: 20,
+            height: "100vh",
+            overflowY: "auto"
+          }}
+        >
           <PersonalInfoSidebar data={userData?.user} />
-        </Grid>
+        </Box>
 
-        {/* Main Content Area */}
-        <Grid item xs={6} md={6} lg={6}>
-          <Box mb={3} md={6}>
+        {/* Main Content Area (Center, scrollable posts) */}
+        <Box
+          sx={{
+            overflowY: "auto",
+            maxHeight: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            gap: 3
+          }}
+        >
+          <Box mb={3}>
             <AddPost />
           </Box>
           <Box>
@@ -50,10 +75,19 @@ export default function HomePage() {
             <PersonalInfoPost />
             <PersonalInfoPost />
           </Box>
-        </Grid>
+        </Box>
 
-        {/* Empty Third Column */}
-        <Grid item xs={0} md={0} lg={3} />
+        {/* Right Sidebar (Fixed) */}
+        <Box
+          sx={{
+            position: "sticky",
+            top: 20,
+            height: "100vh",
+            overflowY: "auto"
+          }}
+        >
+          <Alumni />
+        </Box>
       </Grid>
     </Box>
   );
