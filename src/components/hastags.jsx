@@ -6,7 +6,6 @@ import {
   Chip,
   List,
   ListItem,
-  ListItemText,
   Avatar
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -41,19 +40,14 @@ export default function HashtagTrends() {
       }}
     >
       {/* Header */}
-      <Typography
-        variant="h6"
-        fontWeight="bold"
-        sx={{ mb: 3, display: "flex", alignItems: "center" }}
-      >
-        News and Tags
-        <Typography
-          component="span"
-          sx={{ color: "green", fontSize: "1.25rem", ml: 1 }}
-        >
-          📈
+      <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+        <Typography variant="h6" fontWeight="bold">
+          News and Tags
         </Typography>
-      </Typography>
+        <Box component="span" sx={{ color: "green", fontSize: "1.25rem", ml: 1 }}>
+          📈
+        </Box>
+      </Box>
 
       {/* Trend List */}
       <List>
@@ -80,42 +74,38 @@ export default function HashtagTrends() {
               </Avatar>
 
               {/* Hashtag Name and Stats */}
-              <ListItemText
-                primary={
-                  <Typography
-                    variant="body1"
-                    fontWeight="bold"
-                    color="#ffffff"
-                    sx={{ fontSize: "1rem" }}
-                  >
-                    {trend.hashtag}
-                  </Typography>
-                }
-                secondary={
-                  <Box display="flex" gap={1} mt={0.5}>
-                    <Chip
-                      label={trend.following}
-                      sx={{
-                        backgroundColor: "#333",
-                        color: "#b0b0b0",
-                        fontSize: "0.75rem",
-                        height: 24
-                      }}
-                      size="small"
-                    />
-                    <Chip
-                      label={trend.posts}
-                      sx={{
-                        backgroundColor: "#333",
-                        color: "#b0b0b0",
-                        fontSize: "0.75rem",
-                        height: 24
-                      }}
-                      size="small"
-                    />
-                  </Box>
-                }
-              />
+              <Box>
+                <Typography
+                  variant="body1"
+                  fontWeight="bold"
+                  color="#ffffff"
+                  sx={{ fontSize: "1rem" }}
+                >
+                  {trend.hashtag}
+                </Typography>
+                <Box display="flex" gap={1} mt={0.5}>
+                  <Chip
+                    label={trend.following}
+                    sx={{
+                      backgroundColor: "#333",
+                      color: "#b0b0b0",
+                      fontSize: "0.75rem",
+                      height: 24
+                    }}
+                    size="small"
+                  />
+                  <Chip
+                    label={trend.posts}
+                    sx={{
+                      backgroundColor: "#333",
+                      color: "#b0b0b0",
+                      fontSize: "0.75rem",
+                      height: 24
+                    }}
+                    size="small"
+                  />
+                </Box>
+              </Box>
             </Box>
 
             {/* Add Button */}

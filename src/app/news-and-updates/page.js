@@ -1,10 +1,26 @@
-import React from "react";
+"use client"
+
+import React, { useEffect, useState } from "react";
 import PostCard from "../../components/NewsCardComp";
 import HashtagTrends from "../../components/hastags";
 import Alumni from "../../components/ConnectAlumni";
 import { Box } from "@mui/material";
 
 export default function NewsUpdates() {
+
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    const getAllNews = async () => {
+      const response = await fetch("/api/news");
+      const data = await response.json();
+      console.log(data);
+      setNews(data);
+    }
+
+    getAllNews();
+  }, [])
+
   return (
     <Box
       sx={{
@@ -30,16 +46,20 @@ export default function NewsUpdates() {
       {/* Center News Feed */}
       <Box
         sx={{
-          maxWidth: "800px",
-          mx: "auto",
+          maxWidth: "700px",
+          margin: "0 auto",
           display: "flex",
           flexDirection: "column",
-          gap: 2
+          gap: 2,
+          overflowY: "auto", // Scrollable feed
+          height: "100vh" // Scrollable feed
         }}
       >
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        {
+          news.map((post, index) => (
+            <PostCard key={index} post={post} />
+          ))
+        }
       </Box>
 
       {/* Alumni Connect Sidebar */}
@@ -47,6 +67,7 @@ export default function NewsUpdates() {
         sx={{
           display: { xs: "none", md: "block" }, // Hide on small screens
           position: "sticky",
+          mx: -10,
           top: 20 // Keeps it fixed as you scroll
         }}
       >

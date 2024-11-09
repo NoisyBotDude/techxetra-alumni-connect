@@ -6,7 +6,6 @@ import {
   Chip,
   List,
   ListItem,
-  ListItemText,
   Avatar
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -67,19 +66,14 @@ export default function Alumni() {
       }}
     >
       {/* Header */}
-      <Typography
-        variant="h6"
-        fontWeight="bold"
-        sx={{ mb: 3, display: "flex", alignItems: "center" }}
-      >
-        Popular Around You
-        <Typography
-          component="span"
-          sx={{ color: "orange", fontSize: "1.25rem", ml: 1 }}
-        >
-          🔥
+      <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+        <Typography variant="h6" fontWeight="bold">
+          Popular Around You
         </Typography>
-      </Typography>
+        <Box component="span" sx={{ color: "orange", fontSize: "1.25rem", ml: 1 }}>
+          🔥
+        </Box>
+      </Box>
 
       {/* User List */}
       <List>
@@ -115,51 +109,45 @@ export default function Alumni() {
               </Avatar>
 
               {/* User Name and Stats */}
-              <ListItemText
-                primary={
-                  <Typography
-                    variant="body1"
-                    fontWeight="bold"
-                    color="#ffffff"
-                    sx={{ fontSize: "1rem" }}
-                  >
-                    {user.name}
-                  </Typography>
-                }
-                secondary={
-                  <>
-                    <Typography
-                      variant="body2"
-                      color="#9c9c9c"
-                      sx={{ fontSize: "0.85rem" }}
-                    >
-                      {user.role}
-                    </Typography>
-                    <Box display="flex" gap={1} mt={0.5}>
-                      <Chip
-                        label={user.followers}
-                        sx={{
-                          backgroundColor: "#333",
-                          color: "#9c9c9c",
-                          fontSize: "0.75rem",
-                          height: 24
-                        }}
-                        size="small"
-                      />
-                      <Chip
-                        label={user.posts}
-                        sx={{
-                          backgroundColor: "#333",
-                          color: "#9c9c9c",
-                          fontSize: "0.75rem",
-                          height: 24
-                        }}
-                        size="small"
-                      />
-                    </Box>
-                  </>
-                }
-              />
+              <Box>
+                <Typography
+                  variant="body1"
+                  fontWeight="bold"
+                  color="#ffffff"
+                  sx={{ fontSize: "1rem" }}
+                >
+                  {user.name}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="#9c9c9c"
+                  sx={{ fontSize: "0.85rem" }}
+                >
+                  {user.role}
+                </Typography>
+                <Box display="flex" gap={1} mt={0.5}>
+                  <Chip
+                    label={user.followers}
+                    sx={{
+                      backgroundColor: "#333",
+                      color: "#9c9c9c",
+                      fontSize: "0.75rem",
+                      height: 24
+                    }}
+                    size="small"
+                  />
+                  <Chip
+                    label={user.posts}
+                    sx={{
+                      backgroundColor: "#333",
+                      color: "#9c9c9c",
+                      fontSize: "0.75rem",
+                      height: 24
+                    }}
+                    size="small"
+                  />
+                </Box>
+              </Box>
             </Box>
 
             {/* Follow Button */}

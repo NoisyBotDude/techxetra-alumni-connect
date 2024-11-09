@@ -13,7 +13,7 @@ import {
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import PersonIcon from "@mui/icons-material/Person";
 
-const PostCard = () => {
+const PostCard = (props) => {
   return (
     <Box
       sx={{
@@ -34,12 +34,18 @@ const PostCard = () => {
         mb={2}
       >
         <Typography variant="h5" fontWeight="bold" color="#FFFFFF">
-          Recession in Market
+          {props.post?.title}
         </Typography>
-        <Chip
-          label="Accounting"
-          sx={{ backgroundColor: "#b794f4", color: "#fff", fontWeight: "bold" }}
-        />
+        {
+          props.post?.tags.map((tag, index) => (
+            <Chip
+              key={index}
+              label={tag}
+              sx={{ backgroundColor: "#b794f4", color: "#fff", fontWeight: "bold" }}
+              
+            />
+          ))
+        }
       </Box>
 
       {/* User Info */}
@@ -51,21 +57,18 @@ const PostCard = () => {
         />
         <Box>
           <Typography variant="body1" fontWeight="bold" color="#f5f5f5">
-            Elisabeth May
+            {props.post?.authors[0]?.firstName} {props.post?.authors[0]?.lastName}
           </Typography>
           <Typography variant="body2" color="#b0b0b0">
-            6h ago
+            {/* 6h ago */}
+            {new Date(props.post?.createdAt).toLocaleString()} 
           </Typography>
         </Box>
       </Box>
 
       {/* Message Content */}
-      <Typography variant="body1" color="#f5f5f5" mb={2}>
-        Hi mates, so I talked with Dr Hellen and because of her illness we need
-        to <strong>reschedule upcoming Lecture</strong>. You probably noticed
-        that this lecture is the last before the exam, so Dr Hellen asked if we
-        also want to attend an <strong>additional lecture</strong> where we can
-        study more difficult exercises.
+      <Typography variant="body1" color="#f5f5f5" mb={2} sx={{ width: 600}}>
+        {props.post?.content}
       </Typography>
 
       {/* Action and Response Section */}
@@ -74,7 +77,7 @@ const PostCard = () => {
           <IconButton className="text-red-500">
             <Favorite />
           </IconButton>
-          <Typography variant="body2">Like</Typography>
+          <Typography variant="body2">Like(100)</Typography>
         </Box>
         <Box className="flex items-center cursor-pointer">
           <IconButton className="text-gray-400">
