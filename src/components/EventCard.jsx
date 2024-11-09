@@ -51,9 +51,6 @@ const ContestCard = ({ title, date, type, imageUrl }) => (
       <Box display="flex" alignItems="center" gap={1} mt={1}>
         <AccessTimeIcon sx={{ color: "#f5f5f5", fontSize: 18 }} />
         <EventCountdown start={date} />
-        <Typography variant="body2" color="#b0b0b0">
-          {type} &nbsp;
-        </Typography>
       </Box>
     </CardContent>
   </Card>
@@ -94,9 +91,9 @@ const EventPage = (props) => {
         {props.featuredContests.map((contest, index) => (
           <Grid item key={index}>
             <ContestCard
-              title={contest.title}
-              date={contest.date}
-              status={contest.status}
+              title={contest?.title}
+              date={contest?.time.start}
+              type={contest?.type}
               imageUrl={contest.imageUrl}
             />
           </Grid>
