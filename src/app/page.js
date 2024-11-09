@@ -5,6 +5,7 @@ import AddPost from "@/components/AddPost";
 import PersonalInfoSidebar from "@/components/SideInfo";
 import PersonalInfoPost from "@/components/PostComponent";
 import Alumni from "../components/ConnectAlumni";
+import SignInCard from "../components/SideInfoNoLogin";
 import { Box, Grid } from "@mui/material";
 
 export default function HomePage() {
@@ -54,6 +55,7 @@ export default function HomePage() {
           }}
         >
           <PersonalInfoSidebar data={userData?.user} />
+          <SignInCard />
         </Box>
 
         {/* Main Content Area (Center, scrollable posts) */}

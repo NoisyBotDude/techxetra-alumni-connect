@@ -1,27 +1,39 @@
 "use client";
 
 import React, { useState, useRef } from "react";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import {
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  FormControl,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  Link
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { UserAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 
-const defaultTheme = createTheme();
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: {
+      main: "#4caf50"
+    },
+    background: {
+      default: "#121212",
+      paper: "#1e1e1e"
+    },
+    text: {
+      primary: "#ffffff",
+      secondary: "#aaaaaa"
+    }
+  }
+});
 
 export default function UserInfo() {
   const router = useRouter();
@@ -43,20 +55,16 @@ export default function UserInfo() {
     twitter: "",
     github: "",
     website: "",
-    rememberMe: false,
-    role: "student" // default to "student" or "alumni" if preferred
+    role: "student"
   });
 
   const handleChange = (e) => {
-    console.log(e);
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
       [name]: type === "checkbox" ? checked : value
     });
   };
-
-  console.log(formData);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -100,7 +108,7 @@ export default function UserInfo() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={darkTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -118,10 +126,13 @@ export default function UserInfo() {
               mx: 4,
               display: "flex",
               flexDirection: "column",
-              alignItems: "center"
+              alignItems: "center",
+              //backgroundColor: "background.paper",
+              padding: 3,
+              borderRadius: 2
             }}
           >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
@@ -135,7 +146,7 @@ export default function UserInfo() {
             >
               <Grid
                 container
-                rowSpacing={1}
+                rowSpacing={2}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
                 <Grid item xs={6}>
@@ -149,6 +160,9 @@ export default function UserInfo() {
                     value={formData.firstName}
                     onChange={handleChange}
                     autoFocus
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -162,6 +176,9 @@ export default function UserInfo() {
                     id="last-name"
                     value={formData.lastName}
                     onChange={handleChange}
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -177,6 +194,9 @@ export default function UserInfo() {
                     rows={4}
                     value={formData.bio}
                     onChange={handleChange}
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -189,6 +209,9 @@ export default function UserInfo() {
                     id="skills"
                     value={formData.skills}
                     onChange={handleChange}
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -201,6 +224,9 @@ export default function UserInfo() {
                     id="interests"
                     value={formData.interests}
                     onChange={handleChange}
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -213,6 +239,9 @@ export default function UserInfo() {
                     id="current-role"
                     value={formData.currentRole}
                     onChange={handleChange}
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -225,6 +254,9 @@ export default function UserInfo() {
                     id="company"
                     value={formData.company}
                     onChange={handleChange}
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -237,6 +269,9 @@ export default function UserInfo() {
                     id="experience-years"
                     value={formData.experienceYears}
                     onChange={handleChange}
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -249,93 +284,19 @@ export default function UserInfo() {
                     id="industry"
                     value={formData.industry}
                     onChange={handleChange}
+                    InputLabelProps={{
+                      style: { color: "#b0b0b0" }
+                    }}
                   />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="linkedIn"
-                    label="LinkedIn Profile"
-                    type="url"
-                    id="linkedIn"
-                    value={formData.linkedIn}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="twitter"
-                    label="Twitter Profile"
-                    type="url"
-                    id="twitter"
-                    value={formData.twitter}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="github"
-                    label="GitHub Profile"
-                    type="url"
-                    id="github"
-                    value={formData.github}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    margin="normal"
-                    fullWidth
-                    name="website"
-                    label="Personal Website"
-                    type="url"
-                    id="website"
-                    value={formData.website}
-                    onChange={handleChange}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <FormControl fullWidth>
-                    {/* <Select
-                      labelId="role-label"
-                      id="role"
-                      name="role"
-                      value={formData.role}
-                      onChange={handleChange}
-                      label="Role"
-                      ref={selectRef}
-                    >
-                      <MenuItem value="student">Student</MenuItem>
-                      <MenuItem value="alumni">Alumni</MenuItem>
-                    </Select> */}
-                    <TextField
-                      margin="normal"
-                      fullWidth
-                      name="role"
-                      label="Role"
-                      type="text"
-                      id="role"
-                      value={formData.role}
-                      onChange={handleChange}
-                    />
-                  </FormControl>
                 </Grid>
               </Grid>
-              <div className="flex items-center justify-center ">
-                <Button
-                  type="submit"
-                  justify-content="center"
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Submit Information
-                </Button>
-              </div>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ mt: 3, mb: 2, backgroundColor: "primary.main" }}
+              >
+                Submit Information
+              </Button>
               <Typography
                 variant="body2"
                 color="text.secondary"
