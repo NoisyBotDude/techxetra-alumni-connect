@@ -7,7 +7,6 @@ import PersonalInfoPost from "@/components/PostComponent";
 import { Box, Grid } from "@mui/material";
 
 export default function HomePage() {
-
   const [userData, setUserData] = useState(null);
   useEffect(() => {
     const user_id = localStorage.getItem("user_id");
@@ -27,17 +26,17 @@ export default function HomePage() {
       } catch (error) {
         console.error("API error:", error);
       }
-    }
+    };
 
     getUser();
-  }, [])
+  }, []);
 
   return (
     <Box sx={{ padding: 2 }}>
       <Grid container spacing={2}>
         {/* Left Sidebar */}
         <Grid item xs={6} md={6} lg={3}>
-          <PersonalInfoSidebar data={userData?.user}/>
+          <PersonalInfoSidebar data={userData?.user} />
         </Grid>
 
         {/* Main Content Area */}
