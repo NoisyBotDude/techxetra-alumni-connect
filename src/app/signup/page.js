@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SignUpSide from "../../components/SignUpSide";
 import { UserAuth } from "../../contexts/AuthContext";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,13 @@ export default function SignUp() {
   const router = useRouter();
   const { createUser, signInWithGoogle } = UserAuth();
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const user_id = localStorage.getItem("user_id");
+    if (user_id) {
+      router.push("/");
+    }
+  }, [])
 
   const addUserToDB = async (user) => {
     try {
@@ -37,10 +44,15 @@ export default function SignUp() {
   const handleSignIn = async (data) => {
     setError(null);
     try {
+      if (data.password !== data.confirmPassword) {
+        setError("Passwords do not match. Please try again.");
+        return;
+      }
       const userCredential = await createUser(data.email, data.password);
       if (userCredential) {
         const userAdded = await addUserToDB(userCredential.user);
         if (userAdded) {
+          localStorage.setItem("user_id", userCredential.user.uid);
           router.push("/add-info");
         }
       }
@@ -57,6 +69,7 @@ export default function SignUp() {
       if (userCredential) {
         const userAdded = await addUserToDB(userCredential.user);
         if (userAdded) {
+          localStorage.setItem("user_id", userCredential.user.uid);
           router.push("/add-info");
         }
       }

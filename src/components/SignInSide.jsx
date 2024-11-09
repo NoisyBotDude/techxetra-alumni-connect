@@ -68,7 +68,7 @@ export default function SignInSide(props) {
             <Typography component="h1" variant="h5" className="font-extrabold text-gray-800 mt-2">
               Sign in
             </Typography>
-            <Box sx={{ mt: 1 }} component="form" onSubmit={handleSubmit}>
+            <Box sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
