@@ -86,11 +86,24 @@ export default function SignUpSide(props) {
                 autoComplete="current-password"
                 className="bg-white rounded-lg"
               />
-              <FormControlLabel
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                name="confirm password"
+                label="Confirm-Password"
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                className="bg-white rounded-lg"
+              />
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
                 className="text-gray-700"
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth
@@ -117,7 +130,7 @@ export default function SignUpSide(props) {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2" className="text-blue-600 hover:underline">
+                  <Link href="/signin" variant="body2" className="text-blue-600 hover:underline">
                     {"Already have an account? Sign In"}
                   </Link>
                 </Grid>

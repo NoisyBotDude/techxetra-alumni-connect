@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import React from 'react';
-import { Typography, Grid, Button } from '@mui/material';
-import EventCard from '../../components/EventCard';
-import CreateEventModal from '../../components/CreateEventModal';
-import { useState } from 'react';
+import React from "react";
+import { Typography, Grid, Button } from "@mui/material";
+import EventCard from "../../components/EventCard";
+import CreateEventModal from "../../components/CreateEventModal";
+import { useState } from "react";
 
 const eventsData = [
   {
     id: 1,
-    title: 'Annual Reunion',
-    date: 'April 15, 2024',
-    time: '5:00 PM',
-    description: 'Join us for the annual reunion of our alumni.',
-  },
+    title: "Annual Reunion",
+    date: "April 15, 2024",
+    time: "5:00 PM",
+    description: "Join us for the annual reunion of our alumni."
+  }
   // More sample events
 ];
 
@@ -21,17 +21,17 @@ const EventsPage = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 bg-gradient-to-br from-gray-900 to- gray-800 min-h-screen">
       <div className="flex justify-between items-center mb-8">
-        <Typography variant="h4" className="text-gray-800 font-bold">
+        <Typography variant="h4" className="text-offwhite-800 font-bold">
           Upcoming Alumni Events
         </Typography>
         <Button
           variant="contained"
-          className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white"
+          className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg"
           onClick={() => setOpen(true)}
         >
-          Create Event
+          <b>Create Event</b>
         </Button>
       </div>
       <Grid container spacing={4}>
