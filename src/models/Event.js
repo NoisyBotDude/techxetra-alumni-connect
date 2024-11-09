@@ -16,12 +16,32 @@ const EventSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  featured: {
+    type: Boolean,
+    default: false,
+  },
+  type: {
+    type: String,
+    enum: ['meetup', 'workshop', 'conference'],
+    default: 'meetup',
+  },
+  format: {
+    type: String,
+    enum: ['online', 'offline'],
+    default: 'offline',
+  },
   description: String,
+  language: {
+    type: String,
+    enum: ['en', 'es', 'fr', 'de', 'zh', 'ja', 'ko'],
+    default: 'en',
+  },
   date: Date,
   location: String,
+  timezone: String,
   attendees: [{
     userId: { type: String, ref: 'User' },
-    status: { type: String, enum: ['INTERESTED', 'GOING'], default: 'INTERESTED' },
+    status: { type: String, enum: ['interested', 'not-interested', 'going'], default: 'interested' },
   }],
 });
 
