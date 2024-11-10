@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import AddPost from "@/components/AddPost";
 import PersonalInfoSidebar from "@/components/SideInfo";
 import PersonalInfoPost from "@/components/PostComponent";
@@ -8,15 +8,13 @@ import Alumni from "../components/ConnectAlumni";
 import SignInCard from "../components/SideInfoNoLogin";
 import { Box, Grid } from "@mui/material";
 import Feed from "@/components/Feed";
+import ChatWidget from "@/components/ChatWidget";
 
 export default function HomePage() {
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const user_id = localStorage.getItem("user_id");
-    if (!user_id) {
-      router.push("/signin");
-    }
 
     const getUser = async () => {
       try {
@@ -37,6 +35,7 @@ export default function HomePage() {
 
   return (
     <Box sx={{ padding: 2 }}>
+      {userData && <ChatWidget /> }
       <Grid
         container
         spacing={2}
