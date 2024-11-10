@@ -97,6 +97,13 @@ const UserSchema = new Schema({
             default: 0,
         },
     },
+    followers: { type: Number, default: 0 },
+    posts: { type: Number, default: 0 },
+    connections: [{
+        userId: { type: String, ref: 'User' },
+        status: { type: String, enum: ['PENDING', 'CONNECTED', 'REJECTED'], default: 'PENDING' },
+        createdAt: { type: Date, default: Date.now },
+    }],
     createdAt: {
         type: Date,
         default: Date.now,

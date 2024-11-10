@@ -89,7 +89,9 @@ export default function HomePage() {
             width: "250px",
           }}
         >
-          <Alumni />
+          {
+              userData && <Alumni userId={userData?.userId}/>
+            }
         </Box>
       </Grid>
     </Box>
