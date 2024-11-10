@@ -8,11 +8,80 @@ export async function GET(req, { params }) {
     const id = (await params).id;
     
     try {
-        const user = await User.findOne({ userId: id });
-        if (!user) {
+        const userData = await User.aggregate([
+            { $match: { userId: id } }, // Match the user by userId
+            // Lookup for Events RSVP
+            {
+              $lookup: {
+                from: 'events', // Collection name for events
+                localField: 'eventsRSVP.eventId',
+                foreignField: 'eventId',
+                as: 'eventsRSVPDetails',
+              },
+            },
+            // Lookup for Job Postings
+            {
+              $lookup: {
+                from: 'jobs', // Collection name for jobs
+                localField: 'jobPostings.jobId',
+                foreignField: 'jobId',
+                as: 'jobPostingsDetails',
+              },
+            },
+            // Lookup for Content Contributions
+            {
+              $lookup: {
+                from: 'contents', // Collection name for contents
+                localField: 'contentContributions.contentId',
+                foreignField: 'contentId',
+                as: 'contentContributionsDetails',
+              },
+            },
+            // Project necessary fields
+            {
+              $project: {
+                userId: 1,
+                firstName: 1,
+                lastName: 1,
+                email: 1,
+                description: 1,
+                profileImage: 1,
+                bio: 1,
+                skills: 1,
+                interests: 1,
+                professionalJourney: 1,
+                socialLinks: 1,
+                isMentor: 1,
+                role: 1,
+                profileStats: 1,
+                createdAt: 1,
+                donations: 1,
+                // Include details from lookups
+                eventsRSVPDetails: {
+                  eventId: 1,
+                  title: 1,
+                  date: 1,
+                  location: 1,
+                },
+                jobPostingsDetails: {
+                  jobId: 1,
+                  title: 1,
+                  company: 1,
+                  location: 1,
+                  createdAt: 1,
+                },
+                contentContributionsDetails: {
+                  contentId: 1,
+                  title: 1,
+                  createdAt: 1,
+                },
+              },
+            },
+          ]);
+        if (!userData) {
             return NextResponse.json({ message: 'User not found' }, { status: 404 });
         }
-        return NextResponse.json({user: user}, { status: 200 });
+        return NextResponse.json({user: userData}, { status: 200 });
     } catch (error) {
         console.error('Error retrieving user:', error);
         return NextResponse.json({ message: 'Error retrieving user', error: error.message }, { status: 500 });

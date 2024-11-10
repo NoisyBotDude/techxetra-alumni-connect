@@ -1,15 +1,38 @@
-"use client";
-import React from "react";
-import BasicInfo from "../../components/BasicUserInfo";
-import Skills from "../../components/SkillsUser";
-import BasicInformation from "../../components/BasicInfoRight";
-import Experience from "../../components/ExperienceComp";
-import { Box, Grid, Button } from "@mui/material";
+'use client';
+import React, { useState, useEffect } from 'react';
+import BasicInfo from '../../components/BasicUserInfo';
+import Skills from '../../components/SkillsUser';
+import BasicInformation from '../../components/BasicInfoRight';
+import Experience from '../../components/ExperienceComp';
+import { Box, Grid, Button } from '@mui/material';
 
 export default function UserDetails() {
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('user_id');
+    if (userId) {
+      fetchUserData(userId);
+    }
+  }, []);
+
+  const fetchUserData = async (userId) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`);
+      if (response.ok) {
+        const data = await response.json();
+        console.log('User data:', data);
+        setUserData(data.user[0]);
+      } else {
+        console.error('Failed to fetch user data');
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
   const handleEditProfile = () => {
-    // Implement the logic for editing the profile, such as opening an edit modal or navigating to an edit page.
-    console.log("Edit Profile button clicked");
+    console.log('Edit Profile button clicked');
   };
 
   return (
@@ -18,12 +41,17 @@ export default function UserDetails() {
         {/* Left Column */}
         <Grid item xs={12} md={4}>
           <Box mb={4}>
-            <BasicInfo />
+            <BasicInfo userData={userData} />
           </Box>
           <Box>
-            <Skills />
+            {
+              userData && 
+              <Skills 
+                skills={userData?.skills || []} 
+                userId={userData?.userId}
+              />
+            }
           </Box>
-          {/* Edit Profile Button */}
           <Box mt={4} display="flex" justifyContent="center">
             <Button
               variant="contained"
@@ -39,9 +67,9 @@ export default function UserDetails() {
         {/* Right Column */}
         <Grid item xs={12} md={8}>
           <Box mb={4}>
-            <BasicInformation />
+            <BasicInformation userData={userData} />
           </Box>
-          <Experience />
+          <Experience experiences={userData?.professionalJourney || []} />
         </Grid>
       </Grid>
     </Box>

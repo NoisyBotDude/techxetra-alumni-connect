@@ -49,12 +49,12 @@ const UserSchema = new Schema({
         type: [String],
         default: [],
     },
-    professionalJourney: {
+    professionalJourney: [{
         currentRole: String,
         company: String,
         experienceYears: Number,
         industry: String,
-    },
+    }],
     socialLinks: {
         linkedIn: String,
         twitter: String,
@@ -71,11 +71,11 @@ const UserSchema = new Schema({
         default: 'ALUMNI',
     },
     eventsRSVP: [{
-        eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
+        eventId: { type: String, ref: 'Event' },
         status: { type: String, enum: ['INTERESTED', 'GOING'], default: 'INTERESTED' },
     }],
     jobPostings: [{
-        jobId: { type: mongoose.Schema.Types.ObjectId, ref: 'Job' },
+        jobId: { type: String, ref: 'Job' },
     }],
     donations: [{
         amount: Number,
@@ -83,7 +83,7 @@ const UserSchema = new Schema({
         purpose: String,
     }],
     contentContributions: [{
-        contentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Content' },
+        contentId: { type: String, ref: 'Content' },
     }],
     profileStats: {
         profileViewers: {
