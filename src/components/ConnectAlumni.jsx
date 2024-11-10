@@ -54,7 +54,7 @@ export default function Alumni(props) {
         p: 3,
         width: 320,
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-        marginRight: "30px"
+        marginRight: "230px"
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>

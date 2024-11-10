@@ -54,7 +54,7 @@ const ContestList = (props) => {
         >
           <CardMedia
             component="img"
-            image={contest.imageUrl}
+            image={contest.imageUrl ||  "https://via.placeholder.com/300"}
             alt={contest.title}
             sx={{ width: 80, height: 80, borderRadius: 2 }}
           />

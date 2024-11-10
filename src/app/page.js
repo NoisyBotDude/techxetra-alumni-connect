@@ -42,7 +42,7 @@ export default function HomePage() {
         spacing={2}
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "250px 1fr 250px" },
+          gridTemplateColumns: { xs: "1fr", md: "250px 850px 250px" },
           gap: 3
         }}
       >
@@ -52,7 +52,6 @@ export default function HomePage() {
             position: "sticky",
             top: 20,
             height: "100vh",
-            overflowY: "auto"
           }}
         >
           {userData && <PersonalInfoSidebar data={userData} />}

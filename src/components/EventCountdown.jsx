@@ -33,12 +33,11 @@ const EventCountdown = ({ start }) => {
       <h2>Date: {startTime.toLocaleString()}</h2>
       {timeRemaining ? (
         <div>
-          <h3>Event:</h3>
           <p>
-            {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s
+          Countdown:{timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m {timeRemaining.seconds}s
           </p>
         </div>
-      ) : (
+      ) : ( 
         <p>The event has started!</p>
       )}
     </div>

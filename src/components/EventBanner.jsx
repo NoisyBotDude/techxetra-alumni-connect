@@ -12,6 +12,19 @@ import {
 import ShareIcon from "@mui/icons-material/Share";
 
 const EventBanner = (props) => {
+
+  function formatDate(isoDate) {
+    const date = new Date(isoDate);
+    return date.toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    });
+  }
+
   return (
     <>
       <Box
@@ -30,7 +43,7 @@ const EventBanner = (props) => {
         {/* Poster */}
         <CardMedia
           component="img"
-          image={props.imageUrl}// Replace with the actual path to your event poster
+          image={props.imageUrl ||  "https://via.placeholder.com/300"}// Replace with the actual path to your event poster
           alt="Event Poster"
           sx={{ width: { xs: "100%", md: 300 }, borderRadius: 2 }}
         />
@@ -86,8 +99,10 @@ const EventBanner = (props) => {
               </Button>
             </Box>
 
-            <Typography variant="body2" sx={{ color: "#b0b0b0" }}>
-              {props.data?.time?.start} • {props.data?.type} • {props.data?.date}
+            <Typography variant="body2" sx={{ color: "#b0b0b0" }}>  
+              {formatDate(props.data?.time?.start)} • {formatDate(props.data?.time?.end)} 
+              <br />
+              {props.data?.type}
             </Typography>
 
             {/* Register Button */}
@@ -133,35 +148,6 @@ const EventBanner = (props) => {
         <Typography variant="body2" sx={{ color: "#b0b0b0" }}>
           {props.data?.description}
         </Typography>
-
-        {/* Speaker Section */}
-        <Typography
-          sx={{
-            paddingTop: 5,
-            fontWeight: "bold",
-            color: "#f5f5f5",
-            marginBottom: "10px"
-          }}
-        >
-          Speaker
-        </Typography>
-        <Box display="flex" alignItems="center" gap={2}>
-          <CardMedia
-            component="img"
-            image="/path-to-speaker-image.jpg" // Replace with the actual path to the speaker's image
-            alt="Speaker"
-            sx={{
-              width: 100,
-              height: 100,
-              borderRadius: "50%",
-              backgroundColor: "#1c1c1c",
-              color: "#ffffff"
-            }}
-          />
-          <Typography variant="body1" sx={{ color: "#ffffff" }}>
-            John Doe - Keynote Speaker
-          </Typography>
-        </Box>
       </Box>
     </>
   );
