@@ -218,7 +218,9 @@ export default function ConnectionList() {
 
         <Grid item xs={12} md={3}>
           <Box sx={{ position: "sticky", top: 20 }}>
-            <Alumni  userId={userData?.userId}/>
+            {
+              userData && <Alumni userId={userData?.userId}/>
+            }
           </Box>
         </Grid>
       </Grid>

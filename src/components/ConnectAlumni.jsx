@@ -12,17 +12,27 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import CheckIcon from "@mui/icons-material/Check";
 
 export default function Alumni(props) {
+  console.log(props);
   const [popularUsers, setPopularUsers] = useState([]);
   const [connections, setConnections] = useState({});
 
   useEffect(() => {
-    fetch(`/api/connection/suggestions/${props.userId}`) // Replace USER_ID with the current user's ID
-      .then(response => response.json())
-      .then(data => setPopularUsers(data));
+    const getSuggestions = async () => {
+      try {
+        const response = await fetch(`/api/connection/suggestions/${props.userId}`); // Replace USER_ID with the current user's ID
+        const data = await response.json();
+        console.log('Suggestions:', data);
+        setPopularUsers(data.suggestedConnections);
+      } catch (error) {
+        console.error('Error fetching suggestions:', error);
+      }
+    };
+
+    getSuggestions();
   }, []);
 
   const handleConnectionRequest = async (userId, action) => {
-    const response = await fetch('/api/connections', {
+    const response = await fetch('/api/connection', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ senderId: userId, receiverId: userId, action }), // Replace USER_ID
@@ -57,7 +67,7 @@ export default function Alumni(props) {
       </Box>
 
       <List>
-        {popularUsers.map((user) => (
+        {popularUsers?.map((user) => (
           <ListItem
             key={user.userId}
             disableGutters
@@ -91,7 +101,7 @@ export default function Alumni(props) {
                   color="#ffffff"
                   sx={{ fontSize: "1rem" }}
                 >
-                  {user.name}
+                  {user.firstName} {user.lastName}
                 </Typography>
                 <Typography
                   variant="body2"
