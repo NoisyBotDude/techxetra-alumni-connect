@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import CreateNewsModal from './CreateNewsModal';
 import { Button } from '@mui/material';
 
-const NewsModal = () => {
+const NewsModal = (props) => {
   const [isNewsModalOpen, setIsNewsModalOpen] = useState(false);
 
   const handleAddNews = async (data) => {
@@ -29,6 +29,7 @@ const NewsModal = () => {
         <CreateNewsModal
           handleAddNews={handleAddNews}
           onClose={() => setIsNewsModalOpen(false)}
+          data={props.data}
         />
       )}
     </div>

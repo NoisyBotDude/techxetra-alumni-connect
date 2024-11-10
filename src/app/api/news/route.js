@@ -25,6 +25,7 @@ export async function GET() {
           tags: 1,
           size: 1,
           createdAt: 1,
+          newsId: 1,
           authors: { userId: 1, firstName: 1, lastName: 1, email: 1 }
         }
       }

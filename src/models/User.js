@@ -49,12 +49,14 @@ const UserSchema = new Schema({
         type: [String],
         default: [],
     },
-    professionalJourney: {
-        currentRole: String,
-        company: String,
-        experienceYears: Number,
-        industry: String,
-    },
+    professionalJourney: [{
+        role: String,
+        companyName: String,
+        duration: String,
+        description: String,
+        location: String,
+        initials: String,
+    }],
     socialLinks: {
         linkedIn: String,
         twitter: String,
@@ -71,11 +73,11 @@ const UserSchema = new Schema({
         default: 'ALUMNI',
     },
     eventsRSVP: [{
-        eventId: { type: mongoose.Schema.Types.ObjectId, ref: 'Event' },
+        eventId: { type: String, ref: 'Event' },
         status: { type: String, enum: ['INTERESTED', 'GOING'], default: 'INTERESTED' },
     }],
     jobPostings: [{
-        jobId: { type: mongoose.Schema.Types.ObjectId, ref: 'Job' },
+        jobId: { type: String, ref: 'Job' },
     }],
     donations: [{
         amount: Number,
@@ -83,7 +85,7 @@ const UserSchema = new Schema({
         purpose: String,
     }],
     contentContributions: [{
-        contentId: { type: mongoose.Schema.Types.ObjectId, ref: 'Content' },
+        contentId: { type: String, ref: 'Content' },
     }],
     profileStats: {
         profileViewers: {
@@ -98,6 +100,26 @@ const UserSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    age: {
+        type: String,
+        default: '',
+    },
+    experience: {
+        type: String,
+        default: '',
+    },
+    ctc: {
+        type: String,
+        default: '',
+    },
+    location: {
+        type: String,
+        default: '',
+    },
+    phone: {
+        type: String,
+        default: '',
     },
 });
 

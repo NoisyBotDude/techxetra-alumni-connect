@@ -62,7 +62,8 @@ export default function Alumni() {
         borderRadius: 2,
         p: 3,
         width: 320,
-        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)"
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
+        marginRight: "30px"
       }}
     >
       {/* Header */}
