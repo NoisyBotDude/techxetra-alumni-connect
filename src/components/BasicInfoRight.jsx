@@ -37,6 +37,8 @@ const BasicInformation = ({ userInfo }) => {
     }
   };
 
+  console.log("User Info:", userInfo);
+
   return (
     <Box className="flex flex-col w-full px-4 py-4 bg-gray-800 text-white rounded-lg shadow-lg">
       <Typography variant="h6" className="font-semibold text-white mb-4">

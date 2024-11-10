@@ -56,26 +56,52 @@ export async function GET(req, { params }) {
                 profileStats: 1,
                 createdAt: 1,
                 donations: 1,
+                followers: 1,
+                posts: 1,
+                connections: 1,
+                age: 1,
+                experience: 1,
+                ctc: 1,
+                location: 1,
+                phone: 1,
                 // Include details from lookups
                 eventsRSVPDetails: {
-                  eventId: 1,
-                  title: 1,
-                  date: 1,
-                  location: 1,
+                    $map: {
+                        input: "$eventsRSVPDetails",
+                        as: "event",
+                        in: {
+                            eventId: "$$event._id",
+                            title: "$$event.title",
+                            date: "$$event.date",
+                            location: "$$event.location"
+                        }
+                    }
                 },
                 jobPostingsDetails: {
-                  jobId: 1,
-                  title: 1,
-                  company: 1,
-                  location: 1,
-                  createdAt: 1,
+                    $map: {
+                        input: "$jobPostingsDetails",
+                        as: "job",
+                        in: {
+                            jobId: "$$job._id",
+                            title: "$$job.title",
+                            company: "$$job.company",
+                            location: "$$job.location",
+                            createdAt: "$$job.createdAt"
+                        }
+                    }
                 },
                 contentContributionsDetails: {
-                  contentId: 1,
-                  title: 1,
-                  createdAt: 1,
-                },
-              },
+                    $map: {
+                        input: "$contentContributionsDetails",
+                        as: "content",
+                        in: {
+                            contentId: "$$content._id",
+                            title: "$$content.title",
+                            createdAt: "$$content.createdAt"
+                        }
+                    }
+                }
+            }
             },
           ]);
         if (!userData) {

@@ -7,6 +7,7 @@ import PersonalInfoPost from "@/components/PostComponent";
 import Alumni from "../components/ConnectAlumni";
 import SignInCard from "../components/SideInfoNoLogin";
 import { Box, Grid } from "@mui/material";
+import Feed from "@/components/Feed";
 
 export default function HomePage() {
   const [userData, setUserData] = useState(null);
@@ -72,12 +73,10 @@ export default function HomePage() {
           <Box mb={3}>
             <AddPost data={userData?.user} />
           </Box>
-          <Box>
+          {/* <Box>
             <PersonalInfoPost />
-            <PersonalInfoPost />
-            <PersonalInfoPost />
-            <PersonalInfoPost />
-          </Box>
+          </Box> */}
+          <Feed />
         </Box>
 
         {/* Right Sidebar (Fixed) */}

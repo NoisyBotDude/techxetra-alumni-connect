@@ -25,7 +25,7 @@ export default function SignUp() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: user.uid,
+          userId: user.uid,
           email: user.email,
         }),
       });
@@ -53,7 +53,7 @@ export default function SignUp() {
         const userAdded = await addUserToDB(userCredential.user);
         if (userAdded) {
           localStorage.setItem("user_id", userCredential.user.uid);
-          router.push("/add-info");
+          router.push("/profile");
         }
       }
     } catch (error) {
@@ -70,7 +70,7 @@ export default function SignUp() {
         const userAdded = await addUserToDB(userCredential.user);
         if (userAdded) {
           localStorage.setItem("user_id", userCredential.user.uid);
-          router.push("/add-info");
+          router.push("/profile");
         }
       }
     } catch (error) {

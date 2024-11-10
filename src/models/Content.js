@@ -17,9 +17,9 @@ const ContentSchema = new mongoose.Schema({
     required: true,
   },
   body: String,
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  author: { type: String, ref: 'User' },
   createdAt: { type: Date, default: Date.now },
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  likes: [{ type: String, ref: 'User' }],
 });
 
 export default mongoose.models.Content || mongoose.model('Content', ContentSchema);
