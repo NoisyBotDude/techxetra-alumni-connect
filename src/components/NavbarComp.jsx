@@ -49,32 +49,36 @@ const Navbar = () => {
 
         {/* Sign In and Sign Up Buttons */}
         <Box sx={{ display: "flex", gap: 2 }}>
-          <Button
-            variant="outlined"
-            startIcon={<LoginIcon />}
-            sx={{
-              color: "#FFFFFF",
-              borderColor: "#6366F1",
-              "&:hover": {
-                borderColor: "#A5B4FC"
-              }
-            }}
-          >
-            Sign In
-          </Button>
-          <Button
-            variant="contained"
-            startIcon={<PersonAddIcon />}
-            sx={{
-              backgroundColor: "#6366F1",
-              color: "#FFFFFF",
-              "&:hover": {
-                backgroundColor: "#4F46E5"
-              }
-            }}
-          >
-            Sign Up
-          </Button>
+          <a href="/signin">
+            <Button
+              variant="outlined"
+              startIcon={<LoginIcon />}
+              sx={{
+                color: "#FFFFFF",
+                borderColor: "#6366F1",
+                "&:hover": {
+                  borderColor: "#A5B4FC"
+                }
+              }}
+            >
+              Sign In
+            </Button>
+          </a>
+          <a href="/signup">
+            <Button
+              variant="contained"
+              startIcon={<PersonAddIcon />}
+              sx={{
+                backgroundColor: "#6366F1",
+                color: "#FFFFFF",
+                "&:hover": {
+                  backgroundColor: "#4F46E5"
+                }
+              }}
+            >
+              Sign Up
+            </Button>
+          </a>
         </Box>
       </Toolbar>
     </AppBar>

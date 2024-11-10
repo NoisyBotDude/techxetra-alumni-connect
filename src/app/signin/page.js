@@ -10,13 +10,6 @@ export default function SignIn() {
   const { loginUser, signInWithGoogle } = UserAuth();
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const user_id = localStorage.getItem("user_id");
-    if (user_id) {
-      router.push("/");
-    }
-  }, [])
-
   const addUserToDB = async (user) => {
     try {
       const response = await fetch("/api/users", {
