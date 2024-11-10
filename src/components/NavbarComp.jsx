@@ -1,125 +1,83 @@
-'use client';
-import React, { useState, useEffect } from "react";
-import { Avatar, Button } from "@mui/material";
-import { RiMenu3Line } from "react-icons/ri";
-import { IoIosLogOut } from "react-icons/io";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-
-const navbarContent = [
-  { label: "Home", path: "/" },
-  { label: "Users", path: "/users" },
-  { label: "Events", path: "/events" },
-  { label: "Announcement", path: "/announcements" },
-];
+"use client";
+import React from "react";
+import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 
 const Navbar = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState(null);
-  const router = useRouter();
-
-  // Fetch user details based on userId from localStorage
-  useEffect(() => {
-    const userId = localStorage.getItem('user_id');
-    if (userId) {
-      fetchUserDetails(userId);
-    }
-  }, []);
-
-  // Function to fetch user details from the server
-  const fetchUserDetails = async (userId) => {
-    try {
-      const response = await fetch(`/api/users/${userId}`);
-      if (response.ok) {
-        const userData = await response.json();
-        setUser(userData);
-      } else {
-        console.error("Failed to fetch user details");
-      }
-    } catch (error) {
-      console.error("Error fetching user details:", error);
-    }
-  };
-
   return (
-    <>
-      {user && (
-        <header className="bg-gray-800 text-white fixed top-0 left-0 right-0 z-50" style={{ position: "sticky"}}>
-          <nav className="mx-auto flex w-full md:max-w-[80%] items-center justify-between px-6 py-3 lg:px-8" aria-label="Global">
-            <div className="flex lg:flex-1">
-              <Link href="/" className="flex items-center justify-center">
-                <img className="w-auto h-12" src="/techxetra-text.svg" alt="Techxetra" />
-              </Link>
-            </div>
-            <div className="flex lg:hidden">
-              <Button
-                type="button"
-                variant="outlined"
-                onClick={() => setMobileMenuOpen(true)}
-              >
-                <RiMenu3Line className="h-6 w-6" aria-hidden="true" />
-              </Button>
-            </div>
-            <div className="hidden text-gray-600 lg:flex lg:gap-x-12">
-              {navbarContent.map((data, index) => (
-                <Link key={index} href={data.path} className="text-md text-slate-300 font-medium leading-6">
-                  {data.label}
-                </Link>
-              ))}
-            </div>
+    <AppBar position="static" sx={{ backgroundColor: "#1F2937", padding: 1 }}>
+      <Toolbar>
+        {/* Logo Section */}
+        <Box sx={{ display: "flex", alignItems: "center", mr: 4 }}>
+          <Typography
+            variant="h6"
+            sx={{ color: "#FFFFFF", fontWeight: "bold" }}
+          >
+            GradCircle
+          </Typography>
+        </Box>
 
-            <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <Link href="/profile" className="flex items-center gap-5">
-                <p className="hidden text-white cursor-pointer sm:block text-md">{user?.firstName} {user?.lastName}</p>
-                <Avatar
-                  src={user?.profileImage}
-                  alt={user?.firstName}
-                  className="border border-black h-16 w-16 text-xl font-semibold"
-                />
-              </Link>
-            </div>
-          </nav>
+        {/* Navigation Links */}
+        <Box sx={{ flexGrow: 1, display: "flex", gap: 3 }}>
+          <a href="/">
+            <Typography variant="body1" sx={{ color: "#A1A1A1" }}>
+              Home
+            </Typography>
+          </a>
+          <a href="/events">
+            <Typography variant="body1" sx={{ color: "#A1A1A1" }}>
+              Events
+            </Typography>
+          </a>
+          <a href="/connections">
+            <Typography variant="body1" sx={{ color: "#A1A1A1" }}>
+              Connection
+            </Typography>
+          </a>
+          <a href="/news">
+            <Typography variant="body1" sx={{ color: "#A1A1A1" }}>
+              News
+            </Typography>
+          </a>
+          <a href="/jobs">
+            <Typography variant="body1" sx={{ color: "#A1A1A1" }}>
+              Jobs
+            </Typography>
+          </a>
+        </Box>
 
-          {mobileMenuOpen && (
-            <div
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="hide-scrollbar h-screen lg:hidden fixed inset-0 bg-opacity-30 backdrop-blur z-10"
-            >
-              <aside className="flex flex-col w-64 h-screen px-6 py-3 overflow-y-auto bg-white border-r">
-                <Link href="/" className="flex items-center">
-                  <img className="w-auto h-12" src="/techxetra-text.svg" alt="Techxetra" />
-                </Link>
-
-                <div className="flex flex-col justify-between flex-1 mt-1">
-                  <nav>
-                    <hr className="my-4 border-gray-200 " />
-                    {navbarContent.map((data, index) => (
-                      <Link key={index} href={data.path} className={`flex items-center px-4 py-3 rounded-md ${router.pathname === `${data.path}` ? "text-gray-700 bg-gray-100" : "text-gray-600 transition-colors duration-300 transform hover:bg-gray-100 hover:text-gray-700"}`}>
-                        <span className="mx-2 font-medium">{data.label}</span>
-                      </Link>
-                    ))}
-                  </nav>
-
-                  <div className='pb-10'>
-                    <div className="flex items-center justify-between px-4 -mx-2">
-                      <Link href="/profile" className='flex items-center'>
-                        <Avatar
-                          src={user?.profileImage}
-                          alt={user?.firstName}
-                          className="border border-black h-16 w-16 text-xl font-semibold"
-                        />
-                        <span className="mx-2 font-medium text-gray-800">{user.firstName}</span>
-                      </Link>
-                      <IoIosLogOut onClick={() => { /* handle logout */ }} className="object-cover mx-2 rounded-full h-6 w-6" />
-                    </div>
-                  </div>
-                </div>
-              </aside>
-            </div>
-          )}
-        </header>
-      )}
-    </>
+        {/* Sign In and Sign Up Buttons */}
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <Button
+            variant="outlined"
+            startIcon={<LoginIcon />}
+            sx={{
+              color: "#FFFFFF",
+              borderColor: "#6366F1",
+              "&:hover": {
+                borderColor: "#A5B4FC"
+              }
+            }}
+          >
+            Sign In
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<PersonAddIcon />}
+            sx={{
+              backgroundColor: "#6366F1",
+              color: "#FFFFFF",
+              "&:hover": {
+                backgroundColor: "#4F46E5"
+              }
+            }}
+          >
+            Sign Up
+          </Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 

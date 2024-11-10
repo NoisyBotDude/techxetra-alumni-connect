@@ -13,7 +13,7 @@ import TagIcon from "@mui/icons-material/Tag";
 
 const trends = [
   {
-    hashtag: "experiences",
+    hashtag: "engineering",
     following: "124.3K Following",
     posts: "9.7K Posts"
   },
@@ -22,9 +22,9 @@ const trends = [
     following: "1.9K Following",
     posts: "3.6K Posts"
   },
-  { hashtag: "news", following: "7.8K Following", posts: "3.1K Posts" },
+  { hashtag: "trending", following: "7.8K Following", posts: "3.1K Posts" },
   { hashtag: "gblog", following: "93 Following", posts: "1.6K Posts" },
-  { hashtag: "experiences_qna", following: "52 Following", posts: "614 Posts" }
+  { hashtag: "latest", following: "52 Following", posts: "614 Posts" }
 ];
 
 export default function HashtagTrends() {

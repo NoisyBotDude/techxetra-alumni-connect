@@ -54,15 +54,15 @@ export default function Alumni(props) {
         p: 3,
         width: 320,
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.3)",
-        marginRight: "30px"
+        marginRight: "230px"
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
         <Typography variant="h6" fontWeight="bold">
-          Popular Around You
+          Alumni Suggestion
         </Typography>
         <Box component="span" sx={{ color: "orange", fontSize: "1.25rem", ml: 1 }}>
-          🔥
+          
         </Box>
       </Box>
 

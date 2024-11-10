@@ -7,6 +7,7 @@ import PersonalInfoPost from "@/components/PostComponent";
 import Alumni from "../components/ConnectAlumni";
 import SignInCard from "../components/SideInfoNoLogin";
 import { Box, Grid } from "@mui/material";
+import Feed from "@/components/Feed";
 
 export default function HomePage() {
   const [userData, setUserData] = useState(null);
@@ -41,7 +42,7 @@ export default function HomePage() {
         spacing={2}
         sx={{
           display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "250px 1fr 250px" },
+          gridTemplateColumns: { xs: "1fr", md: "250px 850px 250px" },
           gap: 3
         }}
       >
@@ -51,7 +52,6 @@ export default function HomePage() {
             position: "sticky",
             top: 20,
             height: "100vh",
-            overflowY: "auto"
           }}
         >
           {userData && <PersonalInfoSidebar data={userData} />}
@@ -72,12 +72,10 @@ export default function HomePage() {
           <Box mb={3}>
             <AddPost data={userData?.user} />
           </Box>
-          <Box>
+          {/* <Box>
             <PersonalInfoPost />
-            <PersonalInfoPost />
-            <PersonalInfoPost />
-            <PersonalInfoPost />
-          </Box>
+          </Box> */}
+          <Feed />
         </Box>
 
         {/* Right Sidebar (Fixed) */}
