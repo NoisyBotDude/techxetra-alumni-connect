@@ -10,11 +10,19 @@ export async function GET(req) {
   await dbConnect();
 
   try {
-    // Fetch random documents from each collection
-    const newsData = await News.aggregate([{ $sample: { size: 5 } }]); // 5 random news items
-    const eventsData = await Event.aggregate([{ $sample: { size: 5 } }]); // 5 random events
-    const jobsData = await Job.aggregate([{ $sample: { size: 5 } }]); // 5 random jobs
-    const postsData = await Content.aggregate([{ $sample: { size: 5 } }]); // 5 random posts
+    // Fetch random documents from each collection and add _typename
+    const newsData = await News.aggregate([{ $sample: { size: 5 } }]).then(docs => 
+      docs.map(doc => ({ ...doc, _typename: "News" }))
+    );
+    const eventsData = await Event.aggregate([{ $sample: { size: 5 } }]).then(docs => 
+      docs.map(doc => ({ ...doc, _typename: "Event" }))
+    );
+    const jobsData = await Job.aggregate([{ $sample: { size: 5 } }]).then(docs => 
+      docs.map(doc => ({ ...doc, _typename: "Job" }))
+    );
+    const postsData = await Content.aggregate([{ $sample: { size: 5 } }]).then(docs => 
+      docs.map(doc => ({ ...doc, _typename: "Post" }))
+    );
 
     // Combine and shuffle feed items
     const feedData = [...newsData, ...eventsData, ...jobsData, ...postsData].sort(() => Math.random() - 0.5);

@@ -1,87 +1,62 @@
 [
   {
-    "eventId": "1",
-    "title": "Weekly Contest 300",
-    "featured": false,
-    "type": "workshop",
-    "format": "online",
-    "description": "Join us for a challenging weekly coding contest!",
-    "language": "en",
-    "date": "2024-01-10T09:00:00.000Z",
-    "time": {
-      "start": "2024-01-10T09:00:00.000Z",
-      "end": "2024-01-10T12:00:00.000Z"
-    },
-    "location": "Online",
-    "timezone": "UTC",
-    "attendees": []
+    "jobId": "job001",
+    "title": "Project Manager",
+    "description": "Lead multiple projects in the automotive industry.",
+    "company": "AutoCorp",
+    "location": "Germany",
+    "salary": "€3000-4000",
+    "jobType": "Temporary",
+    "employmentType": "On-site",
+    "postedBy": "user001",
+    "createdAt": "2024-01-10T09:00:00.000Z"
   },
   {
-    "eventId": "2",
-    "title": "Biweekly Contest 150",
-    "featured": true,
-    "type": "conference",
-    "format": "offline",
-    "description": "This biweekly contest will be held in person with exciting challenges.",
-    "language": "en",
-    "date": "2024-01-20T14:00:00.000Z",
-    "time": {
-      "start": "2024-01-20T14:00:00.000Z",
-      "end": "2024-01-20T18:00:00.000Z"
-    },
-    "location": "New York City, NY",
-    "timezone": "EST",
-    "attendees": []
+    "jobId": "job002",
+    "title": "Assistant Manager",
+    "description": "Assist in daily operations and team management.",
+    "company": "HealthCarePlus",
+    "location": "Australia",
+    "salary": "€1000-2000",
+    "jobType": "Internship",
+    "employmentType": "Hybrid",
+    "postedBy": "user002",
+    "createdAt": "2024-02-20T12:00:00.000Z"
   },
   {
-    "eventId": "3",
-    "title": "Global Hackathon 2024",
-    "featured": true,
-    "type": "conference",
-    "format": "online",
-    "description": "Participate in the biggest hackathon of the year with competitors worldwide!",
-    "language": "en",
-    "date": "2024-02-01T09:00:00.000Z",
-    "time": {
-      "start": "2024-02-01T09:00:00.000Z",
-      "end": "2024-02-02T09:00:00.000Z"
-    },
-    "location": "Online",
-    "timezone": "UTC",
-    "attendees": []
+    "jobId": "job003",
+    "title": "iOS Engineer Backup",
+    "description": "Develop and maintain iOS applications for various clients.",
+    "company": "TechSolutions",
+    "location": "USA",
+    "salary": "€2000-3000",
+    "jobType": "Contract",
+    "employmentType": "Remote",
+    "postedBy": "user003",
+    "createdAt": "2024-03-15T14:00:00.000Z"
   },
   {
-    "eventId": "4",
-    "title": "Data Science Meetup",
-    "featured": false,
-    "type": "meetup",
-    "format": "offline",
-    "description": "Network with top data scientists and discuss the latest trends in AI.",
-    "language": "en",
-    "date": "2024-02-10T17:00:00.000Z",
-    "time": {
-      "start": "2024-02-10T17:00:00.000Z",
-      "end": "2024-02-10T19:00:00.000Z"
-    },
-    "location": "San Francisco, CA",
-    "timezone": "PST",
-    "attendees": []
+    "jobId": "job004",
+    "title": "Fitness Trainer",
+    "description": "Design and lead fitness programs for clients.",
+    "company": "WellFit",
+    "location": "Canada",
+    "salary": "$1500-2500",
+    "jobType": "Full-time",
+    "employmentType": "On-site",
+    "postedBy": "user004",
+    "createdAt": "2024-04-10T10:30:00.000Z"
   },
   {
-    "eventId": "5",
-    "title": "AI and ML Workshop",
-    "featured": true,
-    "type": "workshop",
-    "format": "online",
-    "description": "Deep dive into AI and ML with industry experts.",
-    "language": "en",
-    "date": "2024-03-05T10:00:00.000Z",
-    "time": {
-      "start": "2024-03-05T10:00:00.000Z",
-      "end": "2024-03-05T15:00:00.000Z"
-    },
-    "location": "Online",
-    "timezone": "UTC",
-    "attendees": []
+    "jobId": "job005",
+    "title": "Construction Engineer",
+    "description": "Oversee construction projects ensuring safety and quality.",
+    "company": "BuildTech",
+    "location": "UK",
+    "salary": "£2500-3500",
+    "jobType": "Full-time",
+    "employmentType": "On-site",
+    "postedBy": "user005",
+    "createdAt": "2024-05-01T09:00:00.000Z"
   }
 ]

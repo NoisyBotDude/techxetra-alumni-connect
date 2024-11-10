@@ -14,7 +14,8 @@ const Feed = () => {
       try {
         const response = await fetch("/api/feed");
         const data = await response.json();
-        setFeedData(data.feed);
+        setFeedData(data.feedData);
+        console.log("Feed data:", data);
       } catch (error) {
         console.error("Failed to fetch feed data:", error);
       }
@@ -23,7 +24,7 @@ const Feed = () => {
   }, []);
 
   const renderFeedItem = (item) => {
-    switch (item.__typename) {
+    switch (item._typename) {
       case "News":
         return <FeedNewsCard key={item.newsId} data={item} />;
       case "Event":
@@ -39,7 +40,7 @@ const Feed = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-      {feedData?.length > 0 ? (
+      {feedData && feedData?.length > 0 ? (
         feedData?.map((item) => renderFeedItem(item))
       ) : (
         <Typography variant="h6" color="gray">
