@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Avatar,
   Box,
@@ -20,48 +20,62 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Alumni from "../../components/ConnectAlumni";
 import PersonalInfoSidebar from "../../components/SideInfo";
 
-const connections = [
-  {
-    name: "Sakshi Singh",
-    role: "Student",
-    connected: "Connected 12 minutes ago",
-    avatar: "/path-to-avatar1.jpg" // Replace with actual image path
-  },
-  {
-    name: "Sakshi Singh",
-    role: "Student",
-    connected: "Connected 12 minutes ago",
-    avatar: "/path-to-avatar1.jpg" // Replace with actual image path
-  },
-  {
-    name: "Sakshi Singh",
-    role: "Student",
-    connected: "Connected 12 minutes ago",
-    avatar: "/path-to-avatar1.jpg" // Replace with actual image path
-  },
-  {
-    name: "Sakshi Singh",
-    role: "Student",
-    connected: "Connected 12 minutes ago",
-    avatar: "/path-to-avatar1.jpg" // Replace with actual image path
-  },
-  {
-    name: "Sakshi Singh",
-    role: "Student",
-    connected: "Connected 12 minutes ago",
-    avatar: "/path-to-avatar1.jpg" // Replace with actual image path
-  },
-  {
-    name: "Rohit Sharma",
-    role: "Pursuing B.Tech in CSE @1st year || Tezpur University",
-    connected: "Connected 3 weeks ago",
-    avatar: "/path-to-avatar2.jpg"
-  }
-  // Add more connections here...
-];
-
 export default function ConnectionList() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [connections, setConnections] = useState([]);
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    fetchConnections();
+    const user_id = localStorage.getItem("user_id");
+    if (!user_id) {
+      router.push("/signin");
+    }
+
+    const getUser = async () => {
+      try {
+        const response = await fetch(`/api/users/${user_id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        const data = await response.json();
+        console.log("User data:", data);
+        setUserData(data.user[0]);
+      } catch (error) {
+        console.error("API error:", error);
+      }
+    };
+
+    getUser();
+  }, []);
+
+  const fetchConnections = async () => {
+    const userId = localStorage.getItem('user_id');
+    try {
+      const response = await fetch(`/api/connection/${userId}`); // Replace USER_ID with actual user ID
+      const data = await response.json();
+      setConnections(data);
+    } catch (error) {
+      console.error('Error fetching connections:', error);
+    }
+  };
+
+  const handleSendRequest = async (receiverId) => {
+    try {
+      const response = await fetch('/api/connection', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ senderId: 'USER_ID', receiverId }) // Replace USER_ID
+      });
+      if (response.ok) {
+        console.log('Connection request sent');
+      } else {
+        console.error('Failed to send connection request');
+      }
+    } catch (error) {
+      console.error('Error sending connection request:', error);
+    }
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -81,14 +95,12 @@ export default function ConnectionList() {
       }}
     >
       <Grid container spacing={2}>
-        {/* Left Sidebar - PersonalInfoSidebar */}
         <Grid item xs={12} md={3}>
           <Box sx={{ position: "sticky", top: 20 }}>
-            <PersonalInfoSidebar />
+          {userData && <PersonalInfoSidebar data={userData} />}
           </Box>
         </Grid>
 
-        {/* Center - Connection List */}
         <Grid item xs={12} md={6}>
           <Box
             sx={{
@@ -99,33 +111,27 @@ export default function ConnectionList() {
             }}
           >
             <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
-              397 Connections
+              {connections.length} Connections
             </Typography>
 
-            {/* Top Controls */}
             <Box
               display="flex"
               alignItems="center"
               justifyContent="space-between"
               mb={2}
             >
-              <Box display="flex" alignItems="center">
-                <Typography variant="body2" sx={{ color: "#B0BEC5", mr: 1 }}>
-                  Sort by:
-                </Typography>
-                <Button
-                  endIcon={<ArrowDropDownIcon />}
-                  sx={{
-                    color: "white",
-                    textTransform: "none",
-                    backgroundColor: "#1E1E1E",
-                    padding: "5px 15px",
-                    borderRadius: "20px"
-                  }}
-                >
-                  Recently added
-                </Button>
-              </Box>
+              <Button
+                endIcon={<ArrowDropDownIcon />}
+                sx={{
+                  color: "white",
+                  textTransform: "none",
+                  backgroundColor: "#1E1E1E",
+                  padding: "5px 15px",
+                  borderRadius: "20px"
+                }}
+              >
+                Recently added
+              </Button>
               <TextField
                 variant="outlined"
                 placeholder="Search by name"
@@ -149,40 +155,23 @@ export default function ConnectionList() {
                   }
                 }}
               />
-              <Button
-                sx={{
-                  color: "#3B82F6",
-                  fontWeight: "bold",
-                  textTransform: "none",
-                  ml: 2
-                }}
-              >
-                Search with filters
-              </Button>
             </Box>
 
-            {/* Connection List */}
             {connections.map((connection, index) => (
               <Box key={index} mb={2}>
                 <Grid container alignItems="center">
                   <Grid item xs={2}>
-                    <Avatar
-                      src={connection.avatar}
-                      sx={{ width: 48, height: 48, bgcolor: "#4B5563" }}
-                    />
+                    <Avatar src={connection.sender.profileImage} sx={{ width: 48, height: 48, bgcolor: "#4B5563" }} />
                   </Grid>
                   <Grid item xs={7}>
                     <Typography
                       variant="body1"
                       sx={{ fontWeight: "bold", color: "white" }}
                     >
-                      {connection.name}
+                      {connection.sender.firstName} {connection.sender.lastName}
                     </Typography>
                     <Typography variant="body2" sx={{ color: "#B0BEC5" }}>
-                      {connection.role}
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: "#6B7280" }}>
-                      {connection.connected}
+                      {connection.sender.role}
                     </Typography>
                   </Grid>
                   <Grid item xs={2}>
@@ -194,8 +183,9 @@ export default function ConnectionList() {
                         textTransform: "none",
                         borderRadius: "20px"
                       }}
+                      onClick={() => handleSendRequest(connection.receiverId)}
                     >
-                      Message
+                      Connect
                     </Button>
                   </Grid>
                   <Grid item xs={1}>
@@ -214,9 +204,7 @@ export default function ConnectionList() {
                       }}
                     >
                       <MenuItem onClick={handleClose}>View Profile</MenuItem>
-                      <MenuItem onClick={handleClose}>
-                        Remove Connection
-                      </MenuItem>
+                      <MenuItem onClick={handleClose}>Remove Connection</MenuItem>
                     </Menu>
                   </Grid>
                 </Grid>
@@ -228,10 +216,9 @@ export default function ConnectionList() {
           </Box>
         </Grid>
 
-        {/* Right Sidebar - Alumni */}
         <Grid item xs={12} md={3}>
           <Box sx={{ position: "sticky", top: 20 }}>
-            <Alumni />
+            <Alumni  userId={userData?.userId}/>
           </Box>
         </Grid>
       </Grid>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -9,51 +9,32 @@ import {
   Avatar
 } from "@mui/material";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import CheckIcon from "@mui/icons-material/Check";
 
-const popularUsers = [
-  {
-    name: "Geetanjali",
-    role: "Technical Content Writer",
-    followers: "168 Followers",
-    posts: "87 Posts",
-    initials: "G",
-    color: "#FDE68A"
-  },
-  {
-    name: "Afifa",
-    role: "Writer",
-    followers: "7 Followers",
-    posts: "53 Posts",
-    initials: "A",
-    color: "#BFDBFE"
-  },
-  {
-    name: "divya maximize",
-    role: "Community Member",
-    followers: "13 Followers",
-    posts: "41 Posts",
-    initials: "D",
-    color: "#FECACA"
-  },
-  {
-    name: "fatima khatun",
-    role: "College",
-    followers: "5 Followers",
-    posts: "38 Posts",
-    initials: "F",
-    color: "#FED7AA"
-  },
-  {
-    name: "ActowizSolutions",
-    role: "Web Scraping Services",
-    followers: "3 Followers",
-    posts: "26 Posts",
-    initials: "A",
-    color: "#C7D2FE"
-  }
-];
+export default function Alumni(props) {
+  const [popularUsers, setPopularUsers] = useState([]);
+  const [connections, setConnections] = useState({});
 
-export default function Alumni() {
+  useEffect(() => {
+    fetch(`/api/connection/suggestions/${props.userId}`) // Replace USER_ID with the current user's ID
+      .then(response => response.json())
+      .then(data => setPopularUsers(data));
+  }, []);
+
+  const handleConnectionRequest = async (userId, action) => {
+    const response = await fetch('/api/connections', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ senderId: userId, receiverId: userId, action }), // Replace USER_ID
+    });
+    if (response.ok) {
+      setConnections(prev => ({
+        ...prev,
+        [userId]: action === 'send' ? 'PENDING' : action === 'accept' ? 'CONNECTED' : null,
+      }));
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -66,7 +47,6 @@ export default function Alumni() {
         marginRight: "30px"
       }}
     >
-      {/* Header */}
       <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
         <Typography variant="h6" fontWeight="bold">
           Popular Around You
@@ -76,11 +56,10 @@ export default function Alumni() {
         </Box>
       </Box>
 
-      {/* User List */}
       <List>
-        {popularUsers.map((user, index) => (
+        {popularUsers.map((user) => (
           <ListItem
-            key={index}
+            key={user.userId}
             disableGutters
             sx={{
               display: "flex",
@@ -88,14 +67,10 @@ export default function Alumni() {
               justifyContent: "space-between",
               py: 1,
               px: 0,
-              "&:hover": {
-                backgroundColor: "#2c2c2c",
-                borderRadius: 1
-              }
+              "&:hover": { backgroundColor: "#2c2c2c", borderRadius: 1 }
             }}
           >
             <Box display="flex" alignItems="center">
-              {/* User Initials Avatar */}
               <Avatar
                 sx={{
                   bgcolor: user.color,
@@ -109,7 +84,6 @@ export default function Alumni() {
                 {user.initials}
               </Avatar>
 
-              {/* User Name and Stats */}
               <Box>
                 <Typography
                   variant="body1"
@@ -128,7 +102,7 @@ export default function Alumni() {
                 </Typography>
                 <Box display="flex" gap={1} mt={0.5}>
                   <Chip
-                    label={user.followers}
+                    label={`${user.followers} Followers`}
                     sx={{
                       backgroundColor: "#333",
                       color: "#9c9c9c",
@@ -138,7 +112,7 @@ export default function Alumni() {
                     size="small"
                   />
                   <Chip
-                    label={user.posts}
+                    label={`${user.posts} Posts`}
                     sx={{
                       backgroundColor: "#333",
                       color: "#9c9c9c",
@@ -151,17 +125,17 @@ export default function Alumni() {
               </Box>
             </Box>
 
-            {/* Follow Button */}
             <IconButton
+              onClick={() =>
+                handleConnectionRequest(user.userId, connections[user.userId] === 'PENDING' ? 'cancel' : 'send')
+              }
               sx={{
-                color: "#4caf50",
+                color: connections[user.userId] === 'CONNECTED' ? "green" : "#4caf50",
                 transition: "color 0.3s",
-                "&:hover": {
-                  color: "#66bb6a"
-                }
+                "&:hover": { color: "#66bb6a" }
               }}
             >
-              <PersonAddIcon />
+              {connections[user.userId] === 'CONNECTED' ? <CheckIcon /> : <PersonAddIcon />}
             </IconButton>
           </ListItem>
         ))}
