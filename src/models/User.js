@@ -50,10 +50,12 @@ const UserSchema = new Schema({
         default: [],
     },
     professionalJourney: [{
-        currentRole: String,
-        company: String,
-        experienceYears: Number,
-        industry: String,
+        role: String,
+        companyName: String,
+        duration: String,
+        description: String,
+        location: String,
+        initials: String,
     }],
     socialLinks: {
         linkedIn: String,
@@ -98,6 +100,26 @@ const UserSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now,
+    },
+    age: {
+        type: String,
+        default: '',
+    },
+    experience: {
+        type: String,
+        default: '',
+    },
+    ctc: {
+        type: String,
+        default: '',
+    },
+    location: {
+        type: String,
+        default: '',
+    },
+    phone: {
+        type: String,
+        default: '',
     },
 });
 

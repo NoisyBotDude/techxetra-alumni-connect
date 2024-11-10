@@ -1,96 +1,107 @@
-'user client'
-import { Box, Typography, Grid, Button } from "@mui/material";
+'use client'
+import React, { useState } from "react";
+import { Box, Typography, Grid, Button, TextField } from "@mui/material";
 import { Download, Email } from "@mui/icons-material";
 
-const BasicInformation = () => {
-  const userInfo = {
-    age: "28 years",
-    experience: "6 years",
-    ctc: "12.5 Lac",
-    location: "Ahmedabad, Gujarat",
-    phone: "+91 98123 55679",
-    email: "ananyasharma@gmail.com",
+const BasicInformation = ({ userInfo }) => {
+  const [editMode, setEditMode] = useState(false);
+  const [formData, setFormData] = useState(userInfo);
+
+  const handleToggleEdit = () => {
+    setEditMode(!editMode);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSave = async () => {
+    try {
+      const response = await fetch('/api/users/basic-info', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      if (response.ok) {
+        console.log("User information updated successfully");
+        setEditMode(false); // Exit edit mode after saving
+      } else {
+        console.error("Error updating user information");
+      }
+    } catch (error) {
+      console.error("Error updating user information", error);
+    }
   };
 
   return (
-    <div className="flex flex-col w-full px-4 py-4 bg-gray-800 text-white rounded-lg shadow-lg">
-      {/* Title */}
+    <Box className="flex flex-col w-full px-4 py-4 bg-gray-800 text-white rounded-lg shadow-lg">
       <Typography variant="h6" className="font-semibold text-white mb-4">
         Basic Information
       </Typography>
 
-      {/* Information Grid */}
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="white">
-            AGE
-          </Typography>
-          <Typography variant="body1" color="white">
-            {userInfo.age}
-          </Typography>
+      {editMode ? (
+        <Grid container spacing={2}>
+          {["age", "experience", "ctc", "location", "phone", "email"].map((field, index) => (
+            <Grid item xs={6} key={index}>
+              <TextField
+                label={field.charAt(0).toUpperCase() + field.slice(1).replace(/_/g, " ")}
+                name={field}
+                variant="outlined"
+                fullWidth
+                value={formData[field]}
+                onChange={handleChange}
+                InputLabelProps={{ style: { color: "#b0bec5" } }}
+                InputProps={{
+                  style: { color: "white" },
+                  sx: { backgroundColor: "#424242" },
+                }}
+                sx={{
+                  "& .MuiOutlinedInput-root": {
+                    "& fieldset": { borderColor: "#b0bec5" },
+                    "&:hover fieldset": { borderColor: "#90caf9" },
+                    "&.Mui-focused fieldset": { borderColor: "#4F86F7" },
+                  },
+                }}
+              />
+            </Grid>
+          ))}
+          <Box mt={2} display="flex" justifyContent="space-between" width="100%">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSave}
+              sx={{ backgroundColor: "#4F86F7" }}
+            >
+              Save
+            </Button>
+            <Button variant="outlined" onClick={handleToggleEdit} sx={{ color: "white", borderColor: "white" }}>
+              Cancel
+            </Button>
+          </Box>
         </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="white">
-            YEARS OF EXPERIENCE
-          </Typography>
-          <Typography variant="body1" color="white">
-            {userInfo.experience}
-          </Typography>
+      ) : (
+        <Grid container spacing={2}>
+          {/* Display basic info fields */}
+          {["age", "experience", "ctc", "location", "phone", "email"].map((field, index) => (
+            <Grid item xs={6} key={index}>
+              <Typography variant="body2" color="white">
+                {field.toUpperCase()}
+              </Typography>
+              <Typography variant="body1" color="white">
+                {userInfo[field]}
+              </Typography>
+            </Grid>
+          ))}
+          <Button variant="contained" color="primary" onClick={handleToggleEdit} sx={{ backgroundColor: "#4F86F7", mt: 2 }}>
+            Edit
+          </Button>
         </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="white">
-            CTC
-          </Typography>
-          <Typography variant="body1" color="white">
-            {userInfo.ctc}
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="white">
-            LOCATION
-          </Typography>
-          <Typography variant="body1" color="white">
-            {userInfo.location}
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="white">
-            PHONE
-          </Typography>
-          <Typography variant="body1" color="white">
-            {userInfo.phone}
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography variant="body2" color="white">
-            EMAIL
-          </Typography>
-          <Typography variant="body1" color="white">
-            {userInfo.email}
-          </Typography>
-        </Grid>
-      </Grid>
-
-      {/* Action Buttons */}
-      <Box mt={4} display="flex" gap={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          startIcon={<Download />}
-          className="bg-blue-500 text-white"
-        >
-          Download Resume
-        </Button>
-        <Button
-          variant="outlined"
-          color="primary"
-          startIcon={<Email />}
-          className="text-white border-blue-500"
-        >
-          Send Email
-        </Button>
-      </Box>
-    </div>
+      )}
+    </Box>
   );
 };
 

@@ -52,24 +52,25 @@ export default function UserDetails() {
               />
             }
           </Box>
-          <Box mt={4} display="flex" justifyContent="center">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleEditProfile}
-              sx={{ backgroundColor: "#4F86F7" }}
-            >
-              Edit Profile
-            </Button>
-          </Box>
         </Grid>
 
         {/* Right Column */}
         <Grid item xs={12} md={8}>
           <Box mb={4}>
-            <BasicInformation userData={userData} />
+            {
+              userData && 
+              <BasicInformation 
+                userInfo={userData} 
+              />
+            }
           </Box>
-          <Experience experiences={userData?.professionalJourney || []} />
+          {userData && (
+            <Experience  
+            initialExperiences={userData.professionalJourney || []} 
+              title={"Experience"}
+              userId={userData?.userId}
+            />
+          )}
         </Grid>
       </Grid>
     </Box>
