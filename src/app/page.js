@@ -70,7 +70,9 @@ export default function HomePage() {
           }}
         >
           <Box mb={3}>
-            <AddPost data={userData?.user} />
+            {
+              userData &&  <AddPost data={userData} />
+            }
           </Box>
           {/* <Box>
             <PersonalInfoPost />

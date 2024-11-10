@@ -30,12 +30,12 @@ const Navbar = () => {
               Events
             </Typography>
           </a>
-          <a href="/connections">
+          <a href="/connection">
             <Typography variant="body1" sx={{ color: "#A1A1A1" }}>
               Connection
             </Typography>
           </a>
-          <a href="/news">
+          <a href="/news-and-updates">
             <Typography variant="body1" sx={{ color: "#A1A1A1" }}>
               News
             </Typography>

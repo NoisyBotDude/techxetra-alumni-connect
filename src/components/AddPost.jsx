@@ -25,6 +25,8 @@ const AddPostComponent = (props) => {
     avatar: "/path-to-avatar.jpg" // Replace with actual image path
   };
 
+  console.log("AddPostComponent: ", props.data);
+
   return (
     <Box className="flex flex-col items-center w-full p-4 bg-gray-800 text-white rounded-lg shadow-lg">
       {/* Post Input Box */}

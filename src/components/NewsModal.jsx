@@ -22,6 +22,8 @@ const NewsModal = (props) => {
     }
   };
 
+  console.log("news comp: ", props.data);
+
   return (
     <div>
       <Button onClick={() => setIsNewsModalOpen(true)}>Add News</Button>

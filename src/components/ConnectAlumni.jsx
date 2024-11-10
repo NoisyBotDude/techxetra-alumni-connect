@@ -15,14 +15,14 @@ export default function Alumni(props) {
   console.log(props);
   const [popularUsers, setPopularUsers] = useState([]);
   const [connections, setConnections] = useState({});
+  console.log(props)
 
   useEffect(() => {
     const getSuggestions = async () => {
       try {
         const response = await fetch(`/api/connection/suggestions/${props.userId}`); // Replace USER_ID with the current user's ID
         const data = await response.json();
-        console.log('Suggestions:', data);
-        setPopularUsers(data.suggestedConnections);
+        setPopularUsers(data[0].suggestedConnections);
       } catch (error) {
         console.error('Error fetching suggestions:', error);
       }
@@ -67,7 +67,7 @@ export default function Alumni(props) {
       </Box>
 
       <List>
-        {popularUsers?.map((user) => (
+        {popularUsers && popularUsers?.map((user) => (
           <ListItem
             key={user.userId}
             disableGutters

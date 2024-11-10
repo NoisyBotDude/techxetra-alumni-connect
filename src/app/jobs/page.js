@@ -1,4 +1,6 @@
-import React from "react";
+"use client"
+
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -16,6 +18,36 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 
 const JobSearchPage = () => {
+  const [jobs, setJobs] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [locationFilter, setLocationFilter] = useState("");
+
+  useEffect(() => {
+    fetchJobs(); // Fetch jobs when component mounts
+  }, []);
+
+  // Fetch all jobs
+  const fetchJobs = async () => {
+    try {
+      const response = await fetch("/api/jobs");
+      const data = await response.json();
+      setJobs(data.jobs);
+    } catch (error) {
+      console.error("Failed to fetch jobs:", error);
+    }
+  };
+
+  // Search jobs based on query and location
+  const searchJobs = async () => {
+    try {
+      const response = await fetch(`/api/jobs/search?query=${searchQuery}&location=${locationFilter}`);
+      const data = await response.json();
+      setJobs(data.jobs);
+    } catch (error) {
+      console.error("Failed to search jobs:", error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -68,6 +100,8 @@ const JobSearchPage = () => {
             variant="outlined"
             placeholder="Job title or keyword"
             fullWidth
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -101,6 +135,7 @@ const JobSearchPage = () => {
               px: 3,
               textTransform: "none"
             }}
+            onClick={searchJobs}
           >
             Any location
           </Button>
@@ -161,6 +196,7 @@ const JobSearchPage = () => {
               <Button
                 variant="contained"
                 sx={{ backgroundColor: "#3B82F6", mr: 1 }}
+                onClick={fetchJobs} // Reload all jobs on button click
               >
                 Latest Job
               </Button>
@@ -173,29 +209,7 @@ const JobSearchPage = () => {
             </Box>
           </Box>
           <Grid container spacing={3}>
-            {[
-              {
-                title: "Project Manager",
-                salary: "€3000-4000",
-                location: "Germany",
-                type: "Temporary",
-                time: "4 years ago"
-              },
-              {
-                title: "Assistant Manager",
-                salary: "€1000-2000",
-                location: "Australia",
-                type: "Internship",
-                time: "2 years ago"
-              },
-              {
-                title: "iOS Engineer Backup",
-                salary: "€2000-3000",
-                location: "USA",
-                type: "Contract",
-                time: "1 year ago"
-              }
-            ].map((job, index) => (
+            {jobs.map((job, index) => (
               <Grid item xs={12} md={4} key={index}>
                 <Card
                   sx={{
@@ -213,7 +227,7 @@ const JobSearchPage = () => {
                       mb={1}
                     >
                       <Typography variant="caption" sx={{ color: "#B0BEC5" }}>
-                        Type: {job.type} | Time: {job.time}
+                        Type: {job.jobType} | Posted: {new Date(job.createdAt).toLocaleDateString()}
                       </Typography>
                       <IconButton sx={{ color: "#F87171" }}>
                         <WorkIcon />
