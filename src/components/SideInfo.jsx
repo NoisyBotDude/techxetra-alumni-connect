@@ -14,34 +14,38 @@ const PersonalInfoSidebar = (props) => {
   return (
     <Box className="flex flex-col items-center w-full max-w-sm p-4 bg-gray-800 text-white rounded-lg shadow-lg">
       {/* Profile Section */}
-      <Box className="flex flex-col items-center mb-4">
-        <Avatar
-          src="/path-to-avatar.jpg" // Replace with actual image path
-          sx={{ width: 80, height: 80 }}
-        />
-        <Typography variant="h6" className="mt-2 font-semibold text-white">
-          {props.data?.firstName} {props.data?.lastName}
-        </Typography>
-        <Typography
-          variant="body2"
-          className="text-gray-400 text-center mt-1 px-4"
-        >
-          {props.data?.description}
-        </Typography>
-      </Box>
+      <a href="/profile">
+        <Box className="flex flex-col items-center mb-4">
+          <Avatar
+            src="/path-to-avatar.jpg" // Replace with actual image path
+            sx={{ width: 80, height: 80 }}
+          />
+          <Typography variant="h6" className="mt-2 font-semibold text-white">
+            {props.data?.firstName} {props.data?.lastName}
+          </Typography>
+          <Typography
+            variant="body2"
+            className="text-gray-400 text-center mt-1 px-4"
+          >
+            {props.data?.description}
+          </Typography>
+        </Box>
+      </a>
 
       <Divider className="w-full mb-4 bg-gray-700" />
 
       {/* Stats Section */}
       <Box className="w-full px-4 mb-4">
-        <Box className="flex justify-between items-center mb-2">
-          <Typography variant="body2" className="text-gray-400">
-            Profile
-          </Typography>
-          <Typography variant="body2" className="text-blue-400">
-            {props.data?.profileStats?.profileViewers}
-          </Typography>
-        </Box>
+        <a href="/profile">
+          <Box className="flex justify-between items-center mb-2">
+            <Typography variant="body2" className="text-gray-400">
+              Profile
+            </Typography>
+            <Typography variant="body2" className="text-blue-400">
+              {props.data?.profileStats?.profileViewers}
+            </Typography>
+          </Box>
+        </a>
         <Box className="flex justify-between items-center mb-2">
           <Typography variant="body2" className="text-gray-400">
             Posts

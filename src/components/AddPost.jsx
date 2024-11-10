@@ -33,7 +33,7 @@ const AddPostComponent = (props) => {
       <Box className="w-full bg-gray-700 rounded-md p-3 mb-4 flex items-center">
         <Avatar src={userData.avatar} sx={{ width: 40, height: 40 }} />
         <Typography variant="h6" className="ml-2">
-          Whats on your mind, {userData.name}?
+          Whats on your mind?
         </Typography>
       </Box>
 
