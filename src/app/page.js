@@ -25,7 +25,7 @@ export default function HomePage() {
         }
         const data = await response.json();
         console.log("User data:", data);
-        setUserData(data);
+        setUserData(data.user[0]);
       } catch (error) {
         console.error("API error:", error);
       }
@@ -54,7 +54,7 @@ export default function HomePage() {
             overflowY: "auto"
           }}
         >
-          {userData && <PersonalInfoSidebar data={userData?.user} />}
+          {userData && <PersonalInfoSidebar data={userData} />}
           {!userData && <SignInCard />}
         </Box>
 
